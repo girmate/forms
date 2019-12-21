@@ -1,13 +1,14 @@
 <template>
     <div class="container">
         <h3>Форма оплаты за услуги</h3>
+        <slot></slot>
         <button>К оплате: {{ amount }}</button>
     </div>
 </template>
 
 <script>
     export default {
-        data() {
+        data: function () {
             return {
                 amount: 0
             }

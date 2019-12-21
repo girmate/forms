@@ -1,15 +1,15 @@
 <template>
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <p><select name="hero[]">
-                    <option disabled>Выберите героя</option>
-                    <option value="Чебурашка">Чебурашка</option>
-                    <option selected value="Крокодил Гена">Крокодил Гена</option>
-                    <option value="Шапокляк">Шапокляк</option>
-                    <option value="Крыса Лариса">Крыса Лариса</option>
-                </select></p>
-            </div>
+    <div class="row justify-content-center">
+        <div>
+            <p><select name="hero[]">
+                <option disabled>Выберите героя</option>
+                <option value="100">Чебурашка</option>
+                <option selected value="200">Крокодил Гена</option>
+                <option value="500">Шапокляк</option>
+                <option value="1000">Крыса Лариса</option>
+            </select></p>
         </div>
+    </div>
 </template>
 
 <script>

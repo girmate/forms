@@ -96,9 +96,10 @@
         </div>
         <hr>
         <form-component base-amount="21.77">
+            <form-select-component></form-select-component>
+            <form-select-component></form-select-component>
         </form-component>
 
-        <form-select-component></form-select-component>
     </div>
 </div>
 <script src="{{ mix('/js/app.js') }}"></script>

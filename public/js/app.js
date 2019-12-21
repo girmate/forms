@@ -1845,6 +1845,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1890,7 +1891,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    console.log('Form Select Component mounted.');
+    console.log('Form Select Component mounted!.');
   }
 });
 
@@ -37288,11 +37289,18 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("h3", [_vm._v("Форма оплаты за услуги")]),
-    _vm._v(" "),
-    _c("button", [_vm._v("К оплате: " + _vm._s(_vm.amount))])
-  ])
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [
+      _c("h3", [_vm._v("Форма оплаты за услуги")]),
+      _vm._v(" "),
+      _vm._t("default"),
+      _vm._v(" "),
+      _c("button", [_vm._v("К оплате: " + _vm._s(_vm.amount))])
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -37324,28 +37332,22 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-8" }, [
+      _c("div", [
         _c("p", [
           _c("select", { attrs: { name: "hero[]" } }, [
             _c("option", { attrs: { disabled: "" } }, [
               _vm._v("Выберите героя")
             ]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Чебурашка" } }, [
-              _vm._v("Чебурашка")
-            ]),
+            _c("option", { attrs: { value: "100" } }, [_vm._v("Чебурашка")]),
             _vm._v(" "),
-            _c("option", { attrs: { selected: "", value: "Крокодил Гена" } }, [
+            _c("option", { attrs: { selected: "", value: "200" } }, [
               _vm._v("Крокодил Гена")
             ]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Шапокляк" } }, [
-              _vm._v("Шапокляк")
-            ]),
+            _c("option", { attrs: { value: "500" } }, [_vm._v("Шапокляк")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Крыса Лариса" } }, [
-              _vm._v("Крыса Лариса")
-            ])
+            _c("option", { attrs: { value: "1000" } }, [_vm._v("Крыса Лариса")])
           ])
         ])
       ])
