@@ -1846,6 +1846,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1883,15 +1886,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      count: 0
+      count: 0,
+      selectedItem: 0,
+      options: [{
+        text: 'Дракон Гриша',
+        value: 'one',
+        amount: 100.56
+      }, {
+        text: 'Дракон Гоша',
+        value: 'two',
+        amount: 500.24
+      }, {
+        text: 'Дракон Мастер',
+        value: 'three',
+        amount: 1000.77
+      }]
     };
   },
+  methods: {
+    selected: function selected(value) {
+      this.count = this.options[this.selectedItem].amount;
+    }
+  },
   mounted: function mounted() {
-    console.log('Form Select Component mounted!.');
+    console.log('Form Select Component mounted.');
+    this.count = this.options[this.selectedItem].amount;
   }
 });
 
@@ -37289,18 +37311,23 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "container" },
-    [
-      _c("h3", [_vm._v("Форма оплаты за услуги")]),
-      _vm._v(" "),
-      _vm._t("default"),
-      _vm._v(" "),
-      _c("button", [_vm._v("К оплате: " + _vm._s(_vm.amount))])
-    ],
-    2
-  )
+  return _c("div", { staticClass: "container" }, [
+    _c(
+      "form",
+      { attrs: { action: "/", method: "get" } },
+      [
+        _c("h3", [_vm._v("Форма оплаты за услуги")]),
+        _vm._v(" "),
+        _vm._t("default"),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", { attrs: { type: "submit", value: "К оплате:" } }),
+        _vm._v(" " + _vm._s(_vm.amount) + "\n    ")
+      ],
+      2
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -37324,36 +37351,62 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", [
-        _c("p", [
-          _c("select", { attrs: { name: "hero[]" } }, [
-            _c("option", { attrs: { disabled: "" } }, [
-              _vm._v("Выберите героя")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "100" } }, [_vm._v("Чебурашка")]),
-            _vm._v(" "),
-            _c("option", { attrs: { selected: "", value: "200" } }, [
-              _vm._v("Крокодил Гена")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "500" } }, [_vm._v("Шапокляк")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "1000" } }, [_vm._v("Крыса Лариса")])
-          ])
-        ])
-      ])
+  return _c("div", { staticClass: "row justify-content-center" }, [
+    _c("div", [
+      _c("p", [
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.selectedItem,
+                expression: "selectedItem"
+              }
+            ],
+            attrs: { name: "item127" },
+            on: {
+              change: [
+                function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.selectedItem = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                },
+                function($event) {
+                  return _vm.selected(_vm.selectedItem)
+                }
+              ]
+            }
+          },
+          _vm._l(_vm.options, function(option, index) {
+            return _c("option", { key: index, domProps: { value: index } }, [
+              _vm._v(
+                "\n                " +
+                  _vm._s(option.text) +
+                  " - " +
+                  _vm._s(option.amount) +
+                  "$\n            "
+              )
+            ])
+          }),
+          0
+        )
+      ]),
+      _vm._v(" "),
+      _c("span", [_vm._v("Стоимость: " + _vm._s(_vm.count) + "$")])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 

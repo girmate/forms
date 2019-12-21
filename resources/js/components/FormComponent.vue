@@ -1,8 +1,11 @@
 <template>
     <div class="container">
-        <h3>Форма оплаты за услуги</h3>
-        <slot></slot>
-        <button>К оплате: {{ amount }}</button>
+        <form action="/" method="get">
+            <h3>Форма оплаты за услуги</h3>
+            <slot></slot>
+            <br>
+            <input type="submit" value="К оплате:"/> {{ amount }}
+        </form>
     </div>
 </template>
 
