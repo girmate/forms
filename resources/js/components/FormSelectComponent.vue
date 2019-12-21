@@ -18,9 +18,9 @@
                 count: 0,
                 selectedItem: 0,
                 options: [
-                    {text: 'Дракон Гриша', value: 'one', amount: 100.56},
-                    {text: 'Дракон Гоша', value: 'two', amount: 500.24},
-                    {text: 'Дракон Мастер', value: 'three', amount: 1000.77}
+                    {text: 'Дракон Гриша', amount: 100.56},
+                    {text: 'Дракон Гоша', amount: 500.24},
+                    {text: 'Дракон Мастер', amount: 1000.77}
                 ],
             }
         },

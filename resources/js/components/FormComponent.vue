@@ -18,8 +18,9 @@
         },
         props: ['baseAmount'],
         mounted() {
-            console.log('Form Component mounted.')
+            console.log('Form Component mounted.');
             this.amount = this.baseAmount
+            console.log('erwr')
         }
     }
 </script>

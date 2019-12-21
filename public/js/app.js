@@ -1859,6 +1859,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     console.log('Form Component mounted.');
     this.amount = this.baseAmount;
+    console.log('erwr');
   }
 });
 
@@ -1893,15 +1894,12 @@ __webpack_require__.r(__webpack_exports__);
       selectedItem: 0,
       options: [{
         text: 'Дракон Гриша',
-        value: 'one',
         amount: 100.56
       }, {
         text: 'Дракон Гоша',
-        value: 'two',
         amount: 500.24
       }, {
         text: 'Дракон Мастер',
-        value: 'three',
         amount: 1000.77
       }]
     };
