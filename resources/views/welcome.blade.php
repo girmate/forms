@@ -93,9 +93,7 @@
             <a href="https://github.com/laravel/laravel">GitHub</a>
         </div>
         <hr>
-
         {!! $form !!}
-
     </div>
 </div>
 <script src="{{ mix('/js/app.js') }}"></script>
