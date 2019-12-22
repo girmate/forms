@@ -23,7 +23,7 @@
             console.log('Form Component mounted.');
             this.amount = this.baseAmount
 
-            EventBus.$on('componentchanged', clickCount => {
+            EventBus.$on('form-component-changed', clickCount => {
                 console.log(`Component has ${clickCount} amount! :)`)
                 this.checksum(clickCount)
             });

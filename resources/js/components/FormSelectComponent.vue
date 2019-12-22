@@ -33,7 +33,7 @@
         methods: {
             changed: function () {
                 this.count = this.options[this.selectedItem].amount
-                EventBus.$emit('componentchanged', this.count);
+                EventBus.$emit('form-component-changed', this.count);
             }
         }
     }

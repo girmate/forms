@@ -1863,7 +1863,7 @@ __webpack_require__.r(__webpack_exports__);
 
     console.log('Form Component mounted.');
     this.amount = this.baseAmount;
-    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('componentchanged', function (clickCount) {
+    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('form-component-changed', function (clickCount) {
       console.log("Component has ".concat(clickCount, " amount! :)"));
 
       _this.checksum(clickCount);
@@ -1926,7 +1926,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     changed: function changed() {
       this.count = this.options[this.selectedItem].amount;
-      _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('componentchanged', this.count);
+      _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', this.count);
     }
   }
 });
@@ -49827,8 +49827,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\OSPanel\domains\forms\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\OSPanel\domains\forms\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\PerfLogs\OSPanel\domains\forms\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\PerfLogs\OSPanel\domains\forms\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
