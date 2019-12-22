@@ -1859,7 +1859,11 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     console.log('Form Component mounted.');
     this.amount = this.baseAmount;
-    console.log('erwr');
+  },
+  methods: {
+    checksum: function checksum(number) {
+      console.log('child was changed' + number);
+    }
   }
 });
 
@@ -1904,14 +1908,16 @@ __webpack_require__.r(__webpack_exports__);
       }]
     };
   },
-  methods: {
-    selected: function selected(value) {
-      this.count = this.options[this.selectedItem].amount;
-    }
-  },
   mounted: function mounted() {
     console.log('Form Select Component mounted.');
     this.count = this.options[this.selectedItem].amount;
+  },
+  methods: {
+    selected: function selected(value) {
+      this.count = this.options[this.selectedItem].amount;
+      this.$emit('componentchanged');
+      console.log('componentchanged?');
+    }
   }
 });
 

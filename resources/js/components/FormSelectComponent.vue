@@ -24,14 +24,16 @@
                 ],
             }
         },
-        methods: {
-            selected: function (value) {
-                this.count = this.options[this.selectedItem].amount
-            }
-        },
         mounted() {
             console.log('Form Select Component mounted.')
             this.count = this.options[this.selectedItem].amount
+        },
+        methods: {
+            selected: function (value) {
+                this.count = this.options[this.selectedItem].amount
+                this.$emit('componentchanged');
+                console.log('componentchanged?')
+            }
         }
     }
 </script>

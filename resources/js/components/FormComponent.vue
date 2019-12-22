@@ -20,7 +20,11 @@
         mounted() {
             console.log('Form Component mounted.');
             this.amount = this.baseAmount
-            console.log('erwr')
+        },
+        methods: {
+            checksum: function (number) {
+                console.log('child was changed'+ number)
+            }
         }
     }
 </script>
