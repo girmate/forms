@@ -1,7 +1,7 @@
 <template>
     <div class="row justify-content-center">
         <div>
-            <p><select v-model="selectedItem" name="item127" v-on:change="selected(selectedItem)">
+            <p><select v-model="selectedItem" name="item127" v-on:change="changed">
                 <option v-for="(option, index) in options" v-bind:value="index" :key="index">
                     {{ option.text }} - {{ option.amount }}$
                 </option>
@@ -31,7 +31,7 @@
             this.count = this.options[this.selectedItem].amount
         },
         methods: {
-            selected: function (value) {
+            changed: function () {
                 this.count = this.options[this.selectedItem].amount
                 EventBus.$emit('componentchanged', this.count);
             }

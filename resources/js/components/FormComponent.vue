@@ -19,19 +19,18 @@
             }
         },
         props: ['baseAmount'],
-        created() {
-            EventBus.$on('componentchanged', clickCount => {
-                console.log(`Oh, that's nice. It's gotten ${clickCount} clicks! :)`)
-            });
-        },
         mounted() {
             console.log('Form Component mounted.');
             this.amount = this.baseAmount
 
+            EventBus.$on('componentchanged', clickCount => {
+                console.log(`Component has ${clickCount} amount! :)`)
+                this.checksum(clickCount)
+            });
         },
         methods: {
             checksum: function (number) {
-                console.log('child was changed' + number)
+                console.log('child was changed ' + number)
             }
         }
     }

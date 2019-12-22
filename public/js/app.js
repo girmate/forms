@@ -1858,18 +1858,20 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   props: ['baseAmount'],
-  created: function created() {
-    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('componentchanged', function (clickCount) {
-      console.log("Oh, that's nice. It's gotten ".concat(clickCount, " clicks! :)"));
-    });
-  },
   mounted: function mounted() {
+    var _this = this;
+
     console.log('Form Component mounted.');
     this.amount = this.baseAmount;
+    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('componentchanged', function (clickCount) {
+      console.log("Component has ".concat(clickCount, " amount! :)"));
+
+      _this.checksum(clickCount);
+    });
   },
   methods: {
     checksum: function checksum(number) {
-      console.log('child was changed' + number);
+      console.log('child was changed ' + number);
     }
   }
 });
@@ -1922,7 +1924,7 @@ __webpack_require__.r(__webpack_exports__);
     this.count = this.options[this.selectedItem].amount;
   },
   methods: {
-    selected: function selected(value) {
+    changed: function changed() {
       this.count = this.options[this.selectedItem].amount;
       _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('componentchanged', this.count);
     }
@@ -37393,9 +37395,7 @@ var render = function() {
                     ? $$selectedVal
                     : $$selectedVal[0]
                 },
-                function($event) {
-                  return _vm.selected(_vm.selectedItem)
-                }
+                _vm.changed
               ]
             }
           },
