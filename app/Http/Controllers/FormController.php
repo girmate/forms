@@ -11,6 +11,7 @@ class FormController extends Controller
         $form =
             '<form-component base-amount="21.77">
             <form-select-component v-bind:options="[
+                    {text: \'Выберите один из вариантов\', cost: 0},
                     {text: \'Шаровая опора\', cost: 100.56},
                     {text: \'Система подвески\', cost: 500.24},
                     {text: \'Томозная система\', cost: 112.99},

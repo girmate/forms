@@ -1903,10 +1903,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      selectedItem: 0 // options: [
-      //     {text: 'Дракон Гриша', amount: 100.56},
-      //     {text: 'Дракон Гоша', amount: 500.24},
-      //     {text: 'Дракон Мастер', amount: 1000.77}
+      selectedItem: 1 // options: [
+      //     {text: 'Дракон Гриша', cost: 100.56},
+      //     {text: 'Дракон Гоша', cost: 500.24},
+      //     {text: 'Дракон Мастер', cost: 1000.77}
       // ],
 
     };
@@ -1914,6 +1914,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ['options'],
   mounted: function mounted() {
     console.log('Form Select Component mounted.');
+    console.log(this.cost);
   },
   computed: {
     cost: function cost() {

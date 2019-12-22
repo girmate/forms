@@ -15,17 +15,18 @@
     export default {
         data: function () {
             return {
-                selectedItem: 0,
+                selectedItem: 1,
                 // options: [
-                //     {text: 'Дракон Гриша', amount: 100.56},
-                //     {text: 'Дракон Гоша', amount: 500.24},
-                //     {text: 'Дракон Мастер', amount: 1000.77}
+                //     {text: 'Дракон Гриша', cost: 100.56},
+                //     {text: 'Дракон Гоша', cost: 500.24},
+                //     {text: 'Дракон Мастер', cost: 1000.77}
                 // ],
             }
         },
         props: ['options'],
         mounted() {
             console.log('Form Select Component mounted.')
+            console.log(this.cost)
         },
         computed: {
             cost: function () {
