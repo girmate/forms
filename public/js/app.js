@@ -1854,7 +1854,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      amount: 0
+      totalCost: 0
     };
   },
   props: ['baseAmount'],
@@ -1862,7 +1862,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     console.log('Form Component mounted.');
-    this.amount = this.baseAmount;
+    this.totalCost = this.baseAmount;
     _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('form-component-changed', function (clickCount) {
       console.log("Component has ".concat(clickCount, " amount! :)"));
 
@@ -1899,34 +1899,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      count: 0,
-      selectedItem: 0,
-      options: [{
-        text: 'Дракон Гриша',
-        amount: 100.56
-      }, {
-        text: 'Дракон Гоша',
-        amount: 500.24
-      }, {
-        text: 'Дракон Мастер',
-        amount: 1000.77
-      }]
+      selectedItem: 0 // options: [
+      //     {text: 'Дракон Гриша', amount: 100.56},
+      //     {text: 'Дракон Гоша', amount: 500.24},
+      //     {text: 'Дракон Мастер', amount: 1000.77}
+      // ],
+
     };
   },
+  props: ['options'],
   mounted: function mounted() {
     console.log('Form Select Component mounted.');
-    this.count = this.options[this.selectedItem].amount;
+  },
+  computed: {
+    cost: function cost() {
+      return this.options[this.selectedItem].cost;
+    }
   },
   methods: {
     changed: function changed() {
-      this.count = this.options[this.selectedItem].amount;
-      _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', this.count);
+      _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', this.cost);
     }
   }
 });
@@ -37337,7 +37333,7 @@ var render = function() {
         _c("br"),
         _vm._v(" "),
         _c("input", { attrs: { type: "submit", value: "К оплате:" } }),
-        _vm._v(" " + _vm._s(_vm.amount) + "\n    ")
+        _vm._v(" " + _vm._s(_vm.totalCost) + "\n    ")
       ],
       2
     )
@@ -37365,57 +37361,55 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row justify-content-center" }, [
-    _c("div", [
-      _c("p", [
-        _c(
-          "select",
-          {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.selectedItem,
-                expression: "selectedItem"
-              }
-            ],
-            attrs: { name: "item127" },
-            on: {
-              change: [
-                function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.selectedItem = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
-                },
-                _vm.changed
-              ]
+  return _c("div", [
+    _c("p", [
+      _c(
+        "select",
+        {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.selectedItem,
+              expression: "selectedItem"
             }
-          },
-          _vm._l(_vm.options, function(option, index) {
-            return _c("option", { key: index, domProps: { value: index } }, [
-              _vm._v(
-                "\n                " +
-                  _vm._s(option.text) +
-                  " - " +
-                  _vm._s(option.amount) +
-                  "$\n            "
-              )
-            ])
-          }),
-          0
-        )
-      ]),
-      _vm._v(" "),
-      _c("span", [_vm._v("Стоимость: " + _vm._s(_vm.count) + "$")])
-    ])
+          ],
+          attrs: { name: "item127" },
+          on: {
+            change: [
+              function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.selectedItem = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              },
+              _vm.changed
+            ]
+          }
+        },
+        _vm._l(_vm.options, function(option, index) {
+          return _c("option", { key: index, domProps: { value: index } }, [
+            _vm._v(
+              "\n            " +
+                _vm._s(option.text) +
+                " - " +
+                _vm._s(option.cost) +
+                "$\n        "
+            )
+          ])
+        }),
+        0
+      )
+    ]),
+    _vm._v(" "),
+    _c("span", [_vm._v("Стоимость: " + _vm._s(_vm.cost) + "$")])
   ])
 }
 var staticRenderFns = []

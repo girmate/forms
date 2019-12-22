@@ -4,7 +4,7 @@
             <h3>Форма оплаты за услуги</h3>
             <slot></slot>
             <br>
-            <input type="submit" value="К оплате:"/> {{ amount }}
+            <input type="submit" value="К оплате:"/> {{ totalCost }}
         </form>
     </div>
 </template>
@@ -15,13 +15,13 @@
     export default {
         data: function () {
             return {
-                amount: 0,
+                totalCost: 0,
             }
         },
         props: ['baseAmount'],
         mounted() {
             console.log('Form Component mounted.');
-            this.amount = this.baseAmount
+            this.totalCost = this.baseAmount
 
             EventBus.$on('form-component-changed', clickCount => {
                 console.log(`Component has ${clickCount} amount! :)`)

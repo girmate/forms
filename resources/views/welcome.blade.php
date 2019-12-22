@@ -93,10 +93,8 @@
             <a href="https://github.com/laravel/laravel">GitHub</a>
         </div>
         <hr>
-        <form-component base-amount="21.77">
-            <form-select-component></form-select-component>
-            <form-select-component></form-select-component>
-        </form-component>
+
+        {!! $form !!}
 
     </div>
 </div>
