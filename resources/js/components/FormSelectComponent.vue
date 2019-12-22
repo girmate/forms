@@ -12,6 +12,8 @@
 </template>
 
 <script>
+    import {EventBus} from '../app.js';
+
     export default {
         data: function () {
             return {
@@ -31,8 +33,7 @@
         methods: {
             selected: function (value) {
                 this.count = this.options[this.selectedItem].amount
-                this.$emit('componentchanged');
-                console.log('componentchanged?')
+                EventBus.$emit('componentchanged', this.count);
             }
         }
     }

@@ -10,20 +10,28 @@
 </template>
 
 <script>
+    import {EventBus} from '../app.js';
+
     export default {
         data: function () {
             return {
-                amount: 0
+                amount: 0,
             }
         },
         props: ['baseAmount'],
+        created() {
+            EventBus.$on('componentchanged', clickCount => {
+                console.log(`Oh, that's nice. It's gotten ${clickCount} clicks! :)`)
+            });
+        },
         mounted() {
             console.log('Form Component mounted.');
             this.amount = this.baseAmount
+
         },
         methods: {
             checksum: function (number) {
-                console.log('child was changed'+ number)
+                console.log('child was changed' + number)
             }
         }
     }

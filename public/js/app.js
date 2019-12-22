@@ -1838,6 +1838,7 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _app_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app.js */ "./resources/js/app.js");
 //
 //
 //
@@ -1849,6 +1850,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1856,6 +1858,11 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   props: ['baseAmount'],
+  created: function created() {
+    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('componentchanged', function (clickCount) {
+      console.log("Oh, that's nice. It's gotten ".concat(clickCount, " clicks! :)"));
+    });
+  },
   mounted: function mounted() {
     console.log('Form Component mounted.');
     this.amount = this.baseAmount;
@@ -1878,6 +1885,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _app_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app.js */ "./resources/js/app.js");
 //
 //
 //
@@ -1891,6 +1899,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1915,8 +1924,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     selected: function selected(value) {
       this.count = this.options[this.selectedItem].amount;
-      this.$emit('componentchanged');
-      console.log('componentchanged?');
+      _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('componentchanged', this.count);
     }
   }
 });
@@ -49578,9 +49586,12 @@ module.exports = function(module) {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: EventBus */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EventBus", function() { return EventBus; });
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -49600,14 +49611,15 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 //Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-Vue.component('form-component', __webpack_require__(/*! ./components/FormComponent.vue */ "./resources/js/components/FormComponent.vue")["default"]);
 Vue.component('form-select-component', __webpack_require__(/*! ./components/FormSelectComponent.vue */ "./resources/js/components/FormSelectComponent.vue")["default"]);
+Vue.component('form-component', __webpack_require__(/*! ./components/FormComponent.vue */ "./resources/js/components/FormComponent.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+var EventBus = new Vue();
 var app = new Vue({
   el: '#app'
 });
