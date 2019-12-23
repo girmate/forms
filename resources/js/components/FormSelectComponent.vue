@@ -21,7 +21,6 @@
         props: ['id', 'options', 'label'],
         mounted() {
             EventBus.$on('tell-your-cost', () => {
-                //EventBus.$emit('form-component-changed', {id: this.id, cost: this.cost});
                 this.onChanged()
             });
         },
