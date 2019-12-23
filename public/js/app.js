@@ -1934,14 +1934,30 @@ __webpack_require__.r(__webpack_exports__);
       selectedItem: 0
     };
   },
-  props: ['id', 'options', 'label'],
+  props: {
+    id: {
+      type: String,
+      required: true
+    },
+    options: Array,
+    label: {
+      type: String,
+      required: false,
+      "default": ''
+    },
+    preselection: {
+      type: Number,
+      required: false,
+      "default": 0
+    }
+  },
   mounted: function mounted() {
     var _this = this;
 
     _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('tell-your-cost', function () {
-      //EventBus.$emit('form-component-changed', {id: this.id, cost: this.cost});
       _this.onChanged();
     });
+    this.selectedItem = this.preselection ? this.preselection : 0;
   },
   computed: {
     cost: function cost() {

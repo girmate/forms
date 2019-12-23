@@ -18,11 +18,28 @@
                 selectedItem: 0,
             }
         },
-        props: ['id', 'options', 'label'],
+        props: {
+            id: {
+                type: String,
+                required: true
+            },
+            options: Array,
+            label: {
+                type: String,
+                required: false,
+                default: ''
+            },
+            preselection: {
+                type: Number,
+                required: false,
+                default: 0
+            }
+        },
         mounted() {
             EventBus.$on('tell-your-cost', () => {
                 this.onChanged()
             });
+            this.selectedItem = this.preselection ? this.preselection : 0
         },
         computed: {
             cost: function () {
