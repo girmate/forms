@@ -1,6 +1,7 @@
 <template>
     <div>
-        <p><select v-model="selectedItem" v-on:change="changed" v-bind:name="id">
+        <label v-if="label" v-bind:for="id">{{ label }}</label>
+        <p><select v-model="selectedItem" v-on:change="changed" v-bind:name="id" v-bind:id="id">
             <option v-for="(option, index) in options" v-bind:value="index" :key="index">
                 {{ option.text }} - {{ option.cost }}$
             </option>
@@ -17,7 +18,7 @@
                 selectedItem: 0,
             }
         },
-        props: ['id', 'options'],
+        props: ['id', 'options', 'label'],
         mounted() {
             EventBus.$on('tell-your-cost', () => {
                 EventBus.$emit('form-component-changed', {id: this.id, cost: this.cost});

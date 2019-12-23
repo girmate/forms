@@ -1926,6 +1926,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1933,7 +1934,7 @@ __webpack_require__.r(__webpack_exports__);
       selectedItem: 0
     };
   },
-  props: ['id', 'options'],
+  props: ['id', 'options', 'label'],
   mounted: function mounted() {
     var _this = this;
 
@@ -37396,6 +37397,10 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _vm.label
+      ? _c("label", { attrs: { for: _vm.id } }, [_vm._v(_vm._s(_vm.label))])
+      : _vm._e(),
+    _vm._v(" "),
     _c("p", [
       _c(
         "select",
@@ -37408,7 +37413,7 @@ var render = function() {
               expression: "selectedItem"
             }
           ],
-          attrs: { name: _vm.id },
+          attrs: { name: _vm.id, id: _vm.id },
           on: {
             change: [
               function($event) {
