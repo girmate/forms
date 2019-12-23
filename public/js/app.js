@@ -37401,52 +37401,50 @@ var render = function() {
       ? _c("label", { attrs: { for: _vm.id } }, [_vm._v(_vm._s(_vm.label))])
       : _vm._e(),
     _vm._v(" "),
-    _c("p", [
-      _c(
-        "select",
-        {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.selectedItem,
-              expression: "selectedItem"
-            }
-          ],
-          attrs: { name: _vm.id, id: _vm.id },
-          on: {
-            change: [
-              function($event) {
-                var $$selectedVal = Array.prototype.filter
-                  .call($event.target.options, function(o) {
-                    return o.selected
-                  })
-                  .map(function(o) {
-                    var val = "_value" in o ? o._value : o.value
-                    return val
-                  })
-                _vm.selectedItem = $event.target.multiple
-                  ? $$selectedVal
-                  : $$selectedVal[0]
-              },
-              _vm.changed
-            ]
+    _c(
+      "select",
+      {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.selectedItem,
+            expression: "selectedItem"
           }
-        },
-        _vm._l(_vm.options, function(option, index) {
-          return _c("option", { key: index, domProps: { value: index } }, [
-            _vm._v(
-              "\n            " +
-                _vm._s(option.text) +
-                " - " +
-                _vm._s(option.cost) +
-                "$\n        "
-            )
-          ])
-        }),
-        0
-      )
-    ])
+        ],
+        attrs: { name: _vm.id, id: _vm.id },
+        on: {
+          change: [
+            function($event) {
+              var $$selectedVal = Array.prototype.filter
+                .call($event.target.options, function(o) {
+                  return o.selected
+                })
+                .map(function(o) {
+                  var val = "_value" in o ? o._value : o.value
+                  return val
+                })
+              _vm.selectedItem = $event.target.multiple
+                ? $$selectedVal
+                : $$selectedVal[0]
+            },
+            _vm.changed
+          ]
+        }
+      },
+      _vm._l(_vm.options, function(option, index) {
+        return _c("option", { key: index, domProps: { value: index } }, [
+          _vm._v(
+            "\n            " +
+              _vm._s(option.text) +
+              " - " +
+              _vm._s(option.cost) +
+              "$\n        "
+          )
+        ])
+      }),
+      0
+    )
   ])
 }
 var staticRenderFns = []

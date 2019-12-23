@@ -17,6 +17,7 @@ class FormController extends Controller
                     {text: \'Томозная система\', cost: 112.99},
                     {text: \'Кузовные работы\', cost: 1000.77}
                 ]" label=""></form-select-component>
+                <br>
             <form-select-component id="el114" v-bind:options="[
                     {text: \'Очистка поверхности\', cost: 11.56},
                     {text: \'Покраска\', cost: 21.36},
