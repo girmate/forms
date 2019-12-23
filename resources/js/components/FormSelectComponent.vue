@@ -5,7 +5,6 @@
                 {{ option.text }} - {{ option.cost }}$
             </option>
         </select></p>
-        <span>Стоимость: {{ cost }}$</span>
     </div>
 </template>
 
@@ -16,20 +15,12 @@
         data: function () {
             return {
                 selectedItem: 0,
-                // options: [
-                //     {text: 'Дракон Гриша', cost: 100.56},
-                //     {text: 'Дракон Гоша', cost: 500.24},
-                //     {text: 'Дракон Мастер', cost: 1000.77}
-                // ],
             }
         },
         props: ['id', 'options'],
         mounted() {
-            console.log('Form Select Component mounted.' + this.id)
-
             EventBus.$on('tell-your-cost', () => {
                 EventBus.$emit('form-component-changed', {id: this.id, cost: this.cost});
-                //console.log(`!Моя стоимость: ` + this.cost)
             });
         },
         computed: {

@@ -5,7 +5,7 @@
             <p>Базовая цена: {{ basePrice }}$</p>
             <slot></slot>
             <br>
-            <input type="submit" value="К оплате:"/> {{ totalCost }}
+            <input type="submit" value="К оплате:"/> {{ totalCost }}$
         </form>
     </div>
 </template>
@@ -21,14 +21,11 @@
             }
         },
         props: {
-            basePrice : Number
+            basePrice: Number
         },
         mounted() {
             EventBus.$on('form-component-changed', component => {
                 this.components.set(component.id, component.cost)
-                for (let key of this.components.keys()) {
-                    console.log(key + ' = ' + this.components.get(key));
-                }
                 this.checksum()
             });
             EventBus.$emit('tell-your-cost');
@@ -39,7 +36,7 @@
                 for (let amount of this.components.values()) {
                     summary = summary + amount;
                 }
-                this.totalCost = this.basePrice + summary
+                this.totalCost = summary.toFixed(2)
             }
         }
     }

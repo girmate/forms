@@ -1868,14 +1868,21 @@ __webpack_require__.r(__webpack_exports__);
     _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('form-component-changed', function (component) {
       _this.components.set(component.id, component.cost);
 
+      _this.checksum();
+    });
+    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('tell-your-cost');
+  },
+  methods: {
+    checksum: function checksum() {
+      var summary = Number(this.basePrice);
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
       var _iteratorError = undefined;
 
       try {
-        for (var _iterator = _this.components.keys()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var key = _step.value;
-          console.log(key + ' = ' + _this.components.get(key));
+        for (var _iterator = this.components.values()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var amount = _step.value;
+          summary = summary + amount;
         }
       } catch (err) {
         _didIteratorError = true;
@@ -1892,38 +1899,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
 
-      _this.checksum();
-    });
-    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('tell-your-cost');
-  },
-  methods: {
-    checksum: function checksum() {
-      var summary = Number(this.basePrice);
-      var _iteratorNormalCompletion2 = true;
-      var _didIteratorError2 = false;
-      var _iteratorError2 = undefined;
-
-      try {
-        for (var _iterator2 = this.components.values()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-          var amount = _step2.value;
-          summary = summary + amount;
-        }
-      } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
-            _iterator2["return"]();
-          }
-        } finally {
-          if (_didIteratorError2) {
-            throw _iteratorError2;
-          }
-        }
-      }
-
-      this.totalCost = this.basePrice + summary;
+      this.totalCost = summary.toFixed(2);
     }
   }
 });
@@ -1950,29 +1926,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      selectedItem: 0 // options: [
-      //     {text: 'Дракон Гриша', cost: 100.56},
-      //     {text: 'Дракон Гоша', cost: 500.24},
-      //     {text: 'Дракон Мастер', cost: 1000.77}
-      // ],
-
+      selectedItem: 0
     };
   },
   props: ['id', 'options'],
   mounted: function mounted() {
     var _this = this;
 
-    console.log('Form Select Component mounted.' + this.id);
     _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('tell-your-cost', function () {
       _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', {
         id: _this.id,
         cost: _this.cost
-      }); //console.log(`!Моя стоимость: ` + this.cost)
+      });
     });
   },
   computed: {
@@ -37398,7 +37367,7 @@ var render = function() {
         _c("br"),
         _vm._v(" "),
         _c("input", { attrs: { type: "submit", value: "К оплате:" } }),
-        _vm._v(" " + _vm._s(_vm.totalCost) + "\n    ")
+        _vm._v(" " + _vm._s(_vm.totalCost) + "$\n    ")
       ],
       2
     )
@@ -37472,9 +37441,7 @@ var render = function() {
         }),
         0
       )
-    ]),
-    _vm._v(" "),
-    _c("span", [_vm._v("Стоимость: " + _vm._s(_vm.cost) + "$")])
+    ])
   ])
 }
 var staticRenderFns = []
