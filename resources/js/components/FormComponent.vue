@@ -16,6 +16,7 @@
         data: function () {
             return {
                 totalCost: 0,
+                components: [],
             }
         },
         props: ['baseAmount'],
@@ -23,10 +24,14 @@
             console.log('Form Component mounted.');
             this.totalCost = this.baseAmount
 
-            EventBus.$on('form-component-changed', clickCount => {
-                console.log(`Component has ${clickCount} amount! :)`)
-                this.checksum(clickCount)
+            EventBus.$on('form-component-changed', component => {
+                console.log('Пришла стоимость: ' + component.cost)
+                this.components.push(component)
+                console.log(this.components)
+                //this.checksum(clickCount)
             });
+
+            EventBus.$emit('tell-your-cost');
         },
         methods: {
             checksum: function (number) {

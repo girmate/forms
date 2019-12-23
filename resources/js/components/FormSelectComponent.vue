@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p><select v-model="selectedItem" name="item127" v-on:change="changed">
+        <p><select v-model="selectedItem" v-on:change="changed" v-bind:name="id">
             <option v-for="(option, index) in options" v-bind:value="index" :key="index">
                 {{ option.text }} - {{ option.cost }}$
             </option>
@@ -15,7 +15,7 @@
     export default {
         data: function () {
             return {
-                selectedItem: 1,
+                selectedItem: 0,
                 // options: [
                 //     {text: 'Дракон Гриша', cost: 100.56},
                 //     {text: 'Дракон Гоша', cost: 500.24},
@@ -23,10 +23,14 @@
                 // ],
             }
         },
-        props: ['options'],
+        props: ['id', 'options'],
         mounted() {
-            console.log('Form Select Component mounted.')
-            console.log(this.cost)
+            console.log('Form Select Component mounted.' + this.id)
+
+            EventBus.$on('tell-your-cost', () => {
+                EventBus.$emit('form-component-changed', {component: this.id, cost: this.cost});
+                //console.log(`!Моя стоимость: ` + this.cost)
+            });
         },
         computed: {
             cost: function () {
@@ -35,7 +39,7 @@
         },
         methods: {
             changed: function () {
-                EventBus.$emit('form-component-changed', this.cost);
+                EventBus.$emit('form-component-changed', {component: this.id, cost: this.cost});
             }
         }
     }

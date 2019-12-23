@@ -1854,7 +1854,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      totalCost: 0
+      totalCost: 0,
+      components: []
     };
   },
   props: ['baseAmount'],
@@ -1863,11 +1864,14 @@ __webpack_require__.r(__webpack_exports__);
 
     console.log('Form Component mounted.');
     this.totalCost = this.baseAmount;
-    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('form-component-changed', function (clickCount) {
-      console.log("Component has ".concat(clickCount, " amount! :)"));
+    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('form-component-changed', function (component) {
+      console.log('Пришла стоимость: ' + component.cost);
 
-      _this.checksum(clickCount);
+      _this.components.push(component);
+
+      console.log(_this.components); //this.checksum(clickCount)
     });
+    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('tell-your-cost');
   },
   methods: {
     checksum: function checksum(number) {
@@ -1903,7 +1907,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      selectedItem: 1 // options: [
+      selectedItem: 0 // options: [
       //     {text: 'Дракон Гриша', cost: 100.56},
       //     {text: 'Дракон Гоша', cost: 500.24},
       //     {text: 'Дракон Мастер', cost: 1000.77}
@@ -1911,10 +1915,17 @@ __webpack_require__.r(__webpack_exports__);
 
     };
   },
-  props: ['options'],
+  props: ['id', 'options'],
   mounted: function mounted() {
-    console.log('Form Select Component mounted.');
-    console.log(this.cost);
+    var _this = this;
+
+    console.log('Form Select Component mounted.' + this.id);
+    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('tell-your-cost', function () {
+      _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', {
+        component: _this.id,
+        cost: _this.cost
+      }); //console.log(`!Моя стоимость: ` + this.cost)
+    });
   },
   computed: {
     cost: function cost() {
@@ -1923,7 +1934,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     changed: function changed() {
-      _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', this.cost);
+      _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', {
+        component: this.id,
+        cost: this.cost
+      });
     }
   }
 });
@@ -37375,7 +37389,7 @@ var render = function() {
               expression: "selectedItem"
             }
           ],
-          attrs: { name: "item127" },
+          attrs: { name: _vm.id },
           on: {
             change: [
               function($event) {
