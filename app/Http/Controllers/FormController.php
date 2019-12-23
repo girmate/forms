@@ -13,7 +13,7 @@ class FormController extends Controller
 
             <form-radio-component id="el9" v-bind:options="[
                     {text: \'Сервер Европа\', cost: 11.56},
-                    {text: \'Сревер Америка\', cost: 27.22},
+                    {text: \'Сервер Америка\', cost: 27.22},
                     {text: \'Сервер Континент\', cost: 0},
                     {text: \'Сервер Космос\', cost: 0}
                 ]"></form-radio-component>
