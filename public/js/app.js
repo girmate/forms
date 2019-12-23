@@ -1939,10 +1939,8 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('tell-your-cost', function () {
-      _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', {
-        id: _this.id,
-        cost: _this.cost
-      });
+      //EventBus.$emit('form-component-changed', {id: this.id, cost: this.cost});
+      _this.onChanged();
     });
   },
   computed: {
@@ -1951,7 +1949,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    changed: function changed() {
+    onChanged: function onChanged() {
       _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', {
         id: this.id,
         cost: this.cost
@@ -37428,7 +37426,7 @@ var render = function() {
                 ? $$selectedVal
                 : $$selectedVal[0]
             },
-            _vm.changed
+            _vm.onChanged
           ]
         }
       },
