@@ -1850,32 +1850,80 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       totalCost: 0,
-      components: []
+      components: new Map()
     };
   },
-  props: ['baseAmount'],
+  props: {
+    basePrice: Number
+  },
   mounted: function mounted() {
     var _this = this;
 
-    console.log('Form Component mounted.');
-    this.totalCost = this.baseAmount;
     _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('form-component-changed', function (component) {
-      console.log('Пришла стоимость: ' + component.cost);
+      _this.components.set(component.id, component.cost);
 
-      _this.components.push(component);
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
 
-      console.log(_this.components); //this.checksum(clickCount)
+      try {
+        for (var _iterator = _this.components.keys()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var key = _step.value;
+          console.log(key + ' = ' + _this.components.get(key));
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+            _iterator["return"]();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      _this.checksum();
     });
     _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('tell-your-cost');
   },
   methods: {
-    checksum: function checksum(number) {
-      console.log('child was changed ' + number);
+    checksum: function checksum() {
+      var summary = Number(this.basePrice);
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
+
+      try {
+        for (var _iterator2 = this.components.values()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var amount = _step2.value;
+          summary = summary + amount;
+        }
+      } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
+            _iterator2["return"]();
+          }
+        } finally {
+          if (_didIteratorError2) {
+            throw _iteratorError2;
+          }
+        }
+      }
+
+      this.totalCost = this.basePrice + summary;
     }
   }
 });
@@ -1922,7 +1970,7 @@ __webpack_require__.r(__webpack_exports__);
     console.log('Form Select Component mounted.' + this.id);
     _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('tell-your-cost', function () {
       _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', {
-        component: _this.id,
+        id: _this.id,
         cost: _this.cost
       }); //console.log(`!Моя стоимость: ` + this.cost)
     });
@@ -1935,7 +1983,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     changed: function changed() {
       _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', {
-        component: this.id,
+        id: this.id,
         cost: this.cost
       });
     }
@@ -37342,6 +37390,8 @@ var render = function() {
       { attrs: { action: "/", method: "get" } },
       [
         _c("h3", [_vm._v("Форма оплаты за услуги")]),
+        _vm._v(" "),
+        _c("p", [_vm._v("Базовая цена: " + _vm._s(_vm.basePrice) + "$")]),
         _vm._v(" "),
         _vm._t("default"),
         _vm._v(" "),

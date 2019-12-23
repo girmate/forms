@@ -9,7 +9,7 @@ class FormController extends Controller
     public function index()
     {
         $form =
-            '<form-component base-amount="21.77">
+            '<form-component v-bind:base-price=100.33>
             <form-select-component id="el27" v-bind:options="[
                     {text: \'Выберите один из вариантов\', cost: 0},
                     {text: \'Шаровая опора\', cost: 100.56},

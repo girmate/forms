@@ -28,7 +28,7 @@
             console.log('Form Select Component mounted.' + this.id)
 
             EventBus.$on('tell-your-cost', () => {
-                EventBus.$emit('form-component-changed', {component: this.id, cost: this.cost});
+                EventBus.$emit('form-component-changed', {id: this.id, cost: this.cost});
                 //console.log(`!Моя стоимость: ` + this.cost)
             });
         },
@@ -39,7 +39,7 @@
         },
         methods: {
             changed: function () {
-                EventBus.$emit('form-component-changed', {component: this.id, cost: this.cost});
+                EventBus.$emit('form-component-changed', {id: this.id, cost: this.cost});
             }
         }
     }

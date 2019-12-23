@@ -2,6 +2,7 @@
     <div class="container">
         <form action="/" method="get">
             <h3>Форма оплаты за услуги</h3>
+            <p>Базовая цена: {{ basePrice }}$</p>
             <slot></slot>
             <br>
             <input type="submit" value="К оплате:"/> {{ totalCost }}
@@ -16,26 +17,29 @@
         data: function () {
             return {
                 totalCost: 0,
-                components: [],
+                components: new Map(),
             }
         },
-        props: ['baseAmount'],
+        props: {
+            basePrice : Number
+        },
         mounted() {
-            console.log('Form Component mounted.');
-            this.totalCost = this.baseAmount
-
             EventBus.$on('form-component-changed', component => {
-                console.log('Пришла стоимость: ' + component.cost)
-                this.components.push(component)
-                console.log(this.components)
-                //this.checksum(clickCount)
+                this.components.set(component.id, component.cost)
+                for (let key of this.components.keys()) {
+                    console.log(key + ' = ' + this.components.get(key));
+                }
+                this.checksum()
             });
-
             EventBus.$emit('tell-your-cost');
         },
         methods: {
-            checksum: function (number) {
-                console.log('child was changed ' + number)
+            checksum: function () {
+                let summary = Number(this.basePrice)
+                for (let amount of this.components.values()) {
+                    summary = summary + amount;
+                }
+                this.totalCost = this.basePrice + summary
             }
         }
     }
