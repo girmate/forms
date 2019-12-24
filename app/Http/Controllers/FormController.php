@@ -15,7 +15,7 @@ class FormController extends Controller
                     {text: \'Сервер Европа\', cost: 11.56},
                     {text: \'Сервер Америка\', cost: 27.22},
                     {text: \'Сервер Континент\', cost: 0},
-                    {text: \'Сервер Космос\', cost: 0}
+                    {text: \'Сервер Космос\', cost: -1000.01}
                 ]"></form-radio-component>
                 <br>
             <form-select-component id="el27" v-bind:options="[
