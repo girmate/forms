@@ -1947,7 +1947,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     checkForm: function checkForm() {
       // console.log(this.$refs.children.test())
-      console.log(this.$refs['el333'].test()); //EventBus.$emit('validate');
+      this.$refs['el333'][0].test();
+      console.log(this.$refs['el333'][0].id); //EventBus.$emit('validate');
     }
   }
 });

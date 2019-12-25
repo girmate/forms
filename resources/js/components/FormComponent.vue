@@ -51,7 +51,8 @@
             },
             checkForm: function () {
                 // console.log(this.$refs.children.test())
-                console.log(this.$refs['el333'].test())
+                this.$refs['el333'][0].test()
+                console.log(this.$refs['el333'][0].id)
                 //EventBus.$emit('validate');
             }
         }
