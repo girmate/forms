@@ -3,12 +3,14 @@
         <form action="/" method="get" @submit.prevent="checkForm">
             <h3>Форма оплаты за услуги</h3>
             <p>Базовая цена: {{ basePrice }}$</p>
+
+            <form-simple-input-component ref="children" id="helementus" label="Enter your age" pre-text=""></form-simple-input-component>
+
             <template v-for="(item, index) in data">
-                <component v-bind:is="item.name" :id="item.id"></component>
+                <component :is="item.name" :id="item.id" :ref="item.ref"></component>
             </template>
 
-<!--            <form-simple-input-component ref="children" id="helementus" label="Enter your age" pre-text=""></form-simple-input-component>-->
-            <slot></slot>
+            <!--            <slot></slot>-->
             <br>
             <input type="submit" value="К оплате:"/> {{ totalCost }}$
         </form>
@@ -48,9 +50,8 @@
                 this.totalCost = summary.toFixed(2)
             },
             checkForm: function () {
-                //console.log(this.$slots.test())
-                //console.log(this.$slots.el505.test())
-                //this.$ref.element.test()
+                console.log(this.$refs)
+                // console.log(this.$refs.el333.test())
                 EventBus.$emit('validate');
             }
         }

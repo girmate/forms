@@ -10,9 +10,9 @@ class FormController extends Controller
     {
         $form =
             '<form-component ref="blabla" v-bind:base-price=100.33 v-bind:data="[
-                    {name: `form-simple-input-component`, options: `form-simple-input-component`, id:`el656`},
-                    {name: `form-simple-input-component`, options: `form-simple-input-component`, id:`el751`},
-                    {name: `form-simple-input-component`, options: `form-simple-input-component`, id:`el254`}
+                    {name: `form-simple-input-component`, options: `form-simple-input-component`, id:`el656`, ref:`el111`},
+                    {name: `form-simple-input-component`, options: `form-simple-input-component`, id:`el751`, ref:`el222`},
+                    {name: `form-simple-input-component`, options: `form-simple-input-component`, id:`el254`, ref:`el333`}
                 ]">
 
             <form-radio-component id="el9" v-bind:options="[

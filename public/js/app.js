@@ -1889,6 +1889,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1944,9 +1946,8 @@ __webpack_require__.r(__webpack_exports__);
       this.totalCost = summary.toFixed(2);
     },
     checkForm: function checkForm() {
-      //console.log(this.$slots.test())
-      //console.log(this.$slots.el505.test())
-      //this.$ref.element.test()
+      console.log(this.$refs); // console.log(this.$refs.el333.test())
+
       _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('validate');
     }
   }
@@ -37646,16 +37647,26 @@ var render = function() {
         _vm._v(" "),
         _c("p", [_vm._v("Базовая цена: " + _vm._s(_vm.basePrice) + "$")]),
         _vm._v(" "),
-        _vm._l(_vm.data, function(item, index) {
-          return [_c(item.name, { tag: "component", attrs: { id: item.id } })]
+        _c("form-simple-input-component", {
+          ref: "children",
+          attrs: { id: "helementus", label: "Enter your age", "pre-text": "" }
         }),
         _vm._v(" "),
-        _vm._t("default"),
+        _vm._l(_vm.data, function(item, index) {
+          return [
+            _c(item.name, {
+              ref: item.ref,
+              refInFor: true,
+              tag: "component",
+              attrs: { id: item.id }
+            })
+          ]
+        }),
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
         _c("input", { attrs: { type: "submit", value: "К оплате:" } }),
-        _vm._v(" " + _vm._s(_vm.totalCost) + "$\n        ")
+        _vm._v(" " + _vm._s(_vm.totalCost) + "$\n    ")
       ],
       2
     )
