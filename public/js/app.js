@@ -1948,7 +1948,8 @@ __webpack_require__.r(__webpack_exports__);
     checkForm: function checkForm() {
       // console.log(this.$refs.children.test())
       this.$refs['el333'][0].test();
-      console.log(this.$refs['el333'][0].id); //EventBus.$emit('validate');
+      console.log(this.$refs['el333'][0].id);
+      _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('validate');
     }
   }
 });
@@ -37663,6 +37664,8 @@ var render = function() {
           ]
         }),
         _vm._v(" "),
+        _vm._t("default"),
+        _vm._v(" "),
         _c("br"),
         _vm._v(" "),
         _c("input", { attrs: { type: "submit", value: "К оплате:" } }),
@@ -37823,7 +37826,115 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_c("p", { attrs: { id: _vm.id } }, [_vm._v("blabla")])])
+  return _c("div", [
+    _c("p", { attrs: { id: _vm.id } }, [_vm._v("blabla")]),
+    _vm._v(" "),
+    _vm.label
+      ? _c("label", { attrs: { for: _vm.id } }, [_vm._v(_vm._s(_vm.label))])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.type === "checkbox"
+      ? _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.message,
+              expression: "message"
+            }
+          ],
+          attrs: {
+            placeholder: _vm.placeholder,
+            name: _vm.id,
+            id: _vm.id,
+            autocomplete: "off",
+            type: "checkbox"
+          },
+          domProps: {
+            checked: Array.isArray(_vm.message)
+              ? _vm._i(_vm.message, null) > -1
+              : _vm.message
+          },
+          on: {
+            blur: _vm.validate,
+            change: function($event) {
+              var $$a = _vm.message,
+                $$el = $event.target,
+                $$c = $$el.checked ? true : false
+              if (Array.isArray($$a)) {
+                var $$v = null,
+                  $$i = _vm._i($$a, $$v)
+                if ($$el.checked) {
+                  $$i < 0 && (_vm.message = $$a.concat([$$v]))
+                } else {
+                  $$i > -1 &&
+                    (_vm.message = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+                }
+              } else {
+                _vm.message = $$c
+              }
+            }
+          }
+        })
+      : _vm.type === "radio"
+      ? _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.message,
+              expression: "message"
+            }
+          ],
+          attrs: {
+            placeholder: _vm.placeholder,
+            name: _vm.id,
+            id: _vm.id,
+            autocomplete: "off",
+            type: "radio"
+          },
+          domProps: { checked: _vm._q(_vm.message, null) },
+          on: {
+            blur: _vm.validate,
+            change: function($event) {
+              _vm.message = null
+            }
+          }
+        })
+      : _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.message,
+              expression: "message"
+            }
+          ],
+          attrs: {
+            placeholder: _vm.placeholder,
+            name: _vm.id,
+            id: _vm.id,
+            autocomplete: "off",
+            type: _vm.type
+          },
+          domProps: { value: _vm.message },
+          on: {
+            blur: _vm.validate,
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.message = $event.target.value
+            }
+          }
+        }),
+    _vm._v(" "),
+    _vm.errors.length
+      ? _c("p", { staticStyle: { color: "red", "font-weight": "600" } }, [
+          _vm._v(_vm._s(_vm.errors[0]))
+        ])
+      : _vm._e()
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

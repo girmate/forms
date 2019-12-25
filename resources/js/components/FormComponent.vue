@@ -10,7 +10,7 @@
                 <component :is="item.name" :id="item.id" :ref="item.ref" label="Enter your age" pre-text=""></component>
             </template>
 
-            <!--            <slot></slot>-->
+                        <slot></slot>
             <br>
             <input type="submit" value="К оплате:"/> {{ totalCost }}$
         </form>
@@ -53,7 +53,7 @@
                 // console.log(this.$refs.children.test())
                 this.$refs['el333'][0].test()
                 console.log(this.$refs['el333'][0].id)
-                //EventBus.$emit('validate');
+                EventBus.$emit('validate');
             }
         }
     }
