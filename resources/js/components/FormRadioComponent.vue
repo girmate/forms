@@ -31,6 +31,9 @@
             EventBus.$on('tell-your-cost', () => {
                 this.onChanged()
             });
+            EventBus.$on('validate', () => {
+                this.validate()
+            });
             this.picked = this.preselection ? this.preselection : 0
         },
         computed: {
@@ -41,6 +44,9 @@
         methods: {
             onChanged: function () {
                 EventBus.$emit('form-component-changed', {id: this.id, cost: this.cost});
+            },
+            validate: function () {
+                console.log('i am validate)')
             }
         }
     }

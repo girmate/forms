@@ -16,13 +16,13 @@ window.Vue = require('vue');
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+const files = require.context('./', true, /\.vue$/i)
+files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 //Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('form-component', require('./components/FormComponent.vue').default);
-Vue.component('form-select-component', require('./components/FormSelectComponent.vue').default);
-Vue.component('form-radio-component', require('./components/FormRadioComponent.vue').default);
+// Vue.component('form-component', require('./components/FormComponent.vue').default);
+// Vue.component('form-select-component', require('./components/FormSelectComponent.vue').default);
+// Vue.component('form-radio-component', require('./components/FormRadioComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

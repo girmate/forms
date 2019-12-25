@@ -29,7 +29,7 @@
                 required: false,
                 default: ''
             },
-            preselection: {
+            preSelection: {
                 type: Number,
                 required: false,
                 default: 0
@@ -39,7 +39,10 @@
             EventBus.$on('tell-your-cost', () => {
                 this.onChanged()
             });
-            this.selectedItem = this.preselection ? this.preselection : 0
+            EventBus.$on('validate', () => {
+                this.validate()
+            });
+            this.selectedItem = this.preSelection ? this.preSelection : 0
         },
         computed: {
             cost: function () {
@@ -49,6 +52,9 @@
         methods: {
             onChanged: function () {
                 EventBus.$emit('form-component-changed', {id: this.id, cost: this.cost});
+            },
+            validate: function () {
+                console.log('i am validate)')
             }
         }
     }

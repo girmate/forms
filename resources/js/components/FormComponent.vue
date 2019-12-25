@@ -1,8 +1,9 @@
 <template>
     <div class="container">
-        <form action="/" method="get">
+        <form action="/" method="get" @submit.prevent="checkForm">
             <h3>Форма оплаты за услуги</h3>
             <p>Базовая цена: {{ basePrice }}$</p>
+            <form-simple-input-component ref="children" id="helementus" label="Enter your age" pre-text=""></form-simple-input-component>
             <slot></slot>
             <br>
             <input type="submit" value="К оплате:"/> {{ totalCost }}$
@@ -18,6 +19,7 @@
             return {
                 totalCost: 0,
                 components: new Map(),
+                //errors: []
             }
         },
         props: {
@@ -37,6 +39,11 @@
                     summary = summary + amount;
                 }
                 this.totalCost = summary.toFixed(2)
+            },
+            checkForm: function () {
+                this.$refs.children.test()
+                //this.$ref.element.test()
+                //EventBus.$emit('validate');
             }
         }
     }
