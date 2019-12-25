@@ -7,7 +7,7 @@
             <form-simple-input-component ref="children" id="helementus" label="Enter your age" pre-text=""></form-simple-input-component>
 
             <template v-for="(item, index) in data">
-                <component :is="item.name" :id="item.id" :ref="item.ref" label="Enter your age" pre-text=""></component>
+                <component :is="item.name" :id="item.id" :ref="item.id" label="Enter your age" pre-text=""></component>
             </template>
 
                         <slot></slot>
@@ -51,8 +51,8 @@
             },
             checkForm: function () {
                 // console.log(this.$refs.children.test())
-                this.$refs['el333'][0].test()
-                console.log(this.$refs['el333'][0].id)
+                this.$refs['el751'][0].test()
+                console.log(this.$refs['el751'][0].id)
                 EventBus.$emit('validate');
             }
         }

@@ -1947,8 +1947,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     checkForm: function checkForm() {
       // console.log(this.$refs.children.test())
-      this.$refs['el333'][0].test();
-      console.log(this.$refs['el333'][0].id);
+      this.$refs['el751'][0].test();
+      console.log(this.$refs['el751'][0].id);
       _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('validate');
     }
   }
@@ -37656,7 +37656,7 @@ var render = function() {
         _vm._l(_vm.data, function(item, index) {
           return [
             _c(item.name, {
-              ref: item.ref,
+              ref: item.id,
               refInFor: true,
               tag: "component",
               attrs: { id: item.id, label: "Enter your age", "pre-text": "" }
