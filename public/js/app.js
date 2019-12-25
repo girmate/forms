@@ -1946,9 +1946,8 @@ __webpack_require__.r(__webpack_exports__);
       this.totalCost = summary.toFixed(2);
     },
     checkForm: function checkForm() {
-      console.log(this.$refs); // console.log(this.$refs.el333.test())
-
-      _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('validate');
+      // console.log(this.$refs.children.test())
+      console.log(this.$refs['el333'].test()); //EventBus.$emit('validate');
     }
   }
 });
@@ -37658,7 +37657,7 @@ var render = function() {
               ref: item.ref,
               refInFor: true,
               tag: "component",
-              attrs: { id: item.id }
+              attrs: { id: item.id, label: "Enter your age", "pre-text": "" }
             })
           ]
         }),

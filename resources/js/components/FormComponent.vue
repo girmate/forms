@@ -7,7 +7,7 @@
             <form-simple-input-component ref="children" id="helementus" label="Enter your age" pre-text=""></form-simple-input-component>
 
             <template v-for="(item, index) in data">
-                <component :is="item.name" :id="item.id" :ref="item.ref"></component>
+                <component :is="item.name" :id="item.id" :ref="item.ref" label="Enter your age" pre-text=""></component>
             </template>
 
             <!--            <slot></slot>-->
@@ -50,9 +50,9 @@
                 this.totalCost = summary.toFixed(2)
             },
             checkForm: function () {
-                console.log(this.$refs)
-                // console.log(this.$refs.el333.test())
-                EventBus.$emit('validate');
+                // console.log(this.$refs.children.test())
+                console.log(this.$refs['el333'].test())
+                //EventBus.$emit('validate');
             }
         }
     }
