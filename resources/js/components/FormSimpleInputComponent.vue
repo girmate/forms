@@ -1,8 +1,9 @@
 <template>
     <div>
-        <label v-if="label" v-bind:for="id">{{ label }}</label>
-        <input v-bind:type="type" v-model="message" v-bind:placeholder="placeholder" v-bind:name="id" v-bind:id="id" autocomplete="off" @blur="validate">
-        <p v-if="errors.length" style="color:red; font-weight: 600">{{ errors[0] }}</p>
+        <p v-bind:id="id">blabla</p>
+<!--        <label v-if="label" v-bind:for="id">{{ label }}</label>-->
+<!--        <input v-bind:type="type" v-model="message" v-bind:placeholder="placeholder" v-bind:name="id" v-bind:id="id" autocomplete="off" @blur="validate">-->
+<!--        <p v-if="errors.length" style="color:red; font-weight: 600">{{ errors[0] }}</p>-->
 
     </div>
 </template>
@@ -68,7 +69,7 @@
                 }
             },
             test: function () {
-                console.log('I AM INNER COMPONENT')
+                console.log('I AM COMPONENT')
             }
         }
     }
