@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <form action="/" method="get" @submit.prevent="checkForm">
+        <form action="/" method="get" @submit="onSubmit($event)">
             <h3>Форма оплаты за услуги</h3>
             <p>Базовая цена: {{ basePrice }}$</p>
             <template v-for="(item, index) in data">
@@ -39,14 +39,6 @@
                     component.valid ? this.componentsValidateFalse.delete(component.id) : this.componentsValidateFalse.add(component.id)
                 }
             )
-            // EventBus.$on('validation', component => {
-            //     if (component.validate) {
-            //         this.componentsValidateFalse.add(component.id)
-            //     } else {
-            //         this.componentsValidateFalse.delete(component.id)
-            //     }
-            // });
-            // EventBus.$emit('registration-of-invalid');
             EventBus.$emit('tell-your-cost');
             this.checksum()
         },
@@ -57,13 +49,12 @@
                     summary = summary + amount;
                 }
                 this.totalCost = summary.toFixed(2)
-            }
-            ,
-            checkForm: function () {
-                // console.log(this.$refs.children.test())
-                this.$refs['el751'][0].test()
-                console.log(this.$refs['el751'][0].id)
-                EventBus.$emit('validate');
+            },
+            onSubmit: function (event) {
+
+
+                event.preventDefault()
+                //EventBus.$emit('validate');
             }
         }
     }

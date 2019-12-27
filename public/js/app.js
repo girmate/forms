@@ -1913,15 +1913,7 @@ __webpack_require__.r(__webpack_exports__);
       _this.checksum();
 
       component.valid ? _this.componentsValidateFalse["delete"](component.id) : _this.componentsValidateFalse.add(component.id);
-    }); // EventBus.$on('validation', component => {
-    //     if (component.validate) {
-    //         this.componentsValidateFalse.add(component.id)
-    //     } else {
-    //         this.componentsValidateFalse.delete(component.id)
-    //     }
-    // });
-    // EventBus.$emit('registration-of-invalid');
-
+    });
     _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('tell-your-cost');
     this.checksum();
   },
@@ -1954,11 +1946,8 @@ __webpack_require__.r(__webpack_exports__);
 
       this.totalCost = summary.toFixed(2);
     },
-    checkForm: function checkForm() {
-      // console.log(this.$refs.children.test())
-      this.$refs['el751'][0].test();
-      console.log(this.$refs['el751'][0].id);
-      _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('validate');
+    onSubmit: function onSubmit(event) {
+      event.preventDefault(); //EventBus.$emit('validate');
     }
   }
 });
@@ -37664,8 +37653,7 @@ var render = function() {
         attrs: { action: "/", method: "get" },
         on: {
           submit: function($event) {
-            $event.preventDefault()
-            return _vm.checkForm($event)
+            return _vm.onSubmit($event)
           }
         }
       },
