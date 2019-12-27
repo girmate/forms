@@ -31,14 +31,6 @@
             EventBus.$on('tell-your-cost', () => {
                 this.onChanged()
             })
-            // // EventBus.$on('validate', () => {
-            // //     this.validate()
-            // // });
-            // EventBus.$on('registration-of-invalid', () => {
-            //     if (!this.checkValid()) {
-            //         EventBus.$emit('validation', {id: this.id, validate: false});
-            //     }
-            // })
             this.selected = this.options.preselection ? this.options.preselection : 0
         },
         computed: {
@@ -62,9 +54,6 @@
             // checkValid: function () {
             //     //return (this.selected >= 0) && (this.selected <= this.options)
             //     return true
-            // },
-            // isValid: function () {
-            //
             // },
         }
     }

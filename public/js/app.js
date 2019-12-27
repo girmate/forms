@@ -1996,15 +1996,7 @@ __webpack_require__.r(__webpack_exports__);
 
     _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('tell-your-cost', function () {
       _this.onChanged();
-    }); // // EventBus.$on('validate', () => {
-    // //     this.validate()
-    // // });
-    // EventBus.$on('registration-of-invalid', () => {
-    //     if (!this.checkValid()) {
-    //         EventBus.$emit('validation', {id: this.id, validate: false});
-    //     }
-    // })
-
+    });
     this.selected = this.options.preselection ? this.options.preselection : 0;
   },
   computed: {
@@ -2030,9 +2022,6 @@ __webpack_require__.r(__webpack_exports__);
     // checkValid: function () {
     //     //return (this.selected >= 0) && (this.selected <= this.options)
     //     return true
-    // },
-    // isValid: function () {
-    //
     // },
 
   }
