@@ -1886,18 +1886,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       totalCost: 0,
-      components: new Map() //errors: []
-
+      components: new Map(),
+      componentsValidateFalse: new Set()
     };
   },
   props: {
@@ -1914,6 +1909,14 @@ __webpack_require__.r(__webpack_exports__);
 
       _this.checksum();
     });
+    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('validation', function (component) {
+      if (component.validate) {
+        _this.componentsValidateFalse.add(component.id);
+      } else {
+        _this.componentsValidateFalse["delete"](component.id);
+      }
+    });
+    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('registration-of-invalid-data');
     _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('tell-your-cost');
   },
   methods: {
@@ -1974,11 +1977,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      picked: 0
+      picked: 0,
+      errors: []
     };
   },
   props: {
@@ -1998,9 +2003,17 @@ __webpack_require__.r(__webpack_exports__);
 
     _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('tell-your-cost', function () {
       _this.onChanged();
-    });
-    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('validate', function () {
-      _this.validate();
+    }); // EventBus.$on('validate', () => {
+    //     this.validate()
+    // });
+
+    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('registration-of-invalid-data', function () {
+      if (!_this.checkValid()) {
+        _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('validation', {
+          id: _this.id,
+          validate: false
+        });
+      }
     });
     this.picked = this.preselection ? this.preselection : 0;
   },
@@ -2017,8 +2030,14 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     validate: function validate() {
-      console.log('i am validate)');
-    }
+      this.errors = [];
+      this.errors.push('Please enter only number');
+    },
+    checkValid: function checkValid() {
+      //return (this.picked >= 0) && (this.picked <= this.options)
+      return true;
+    },
+    isValid: function isValid() {}
   }
 });
 
@@ -2110,7 +2129,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app.js */ "./resources/js/app.js");
-//
 //
 //
 //
@@ -37648,11 +37666,6 @@ var render = function() {
         _vm._v(" "),
         _c("p", [_vm._v("Базовая цена: " + _vm._s(_vm.basePrice) + "$")]),
         _vm._v(" "),
-        _c("form-simple-input-component", {
-          ref: "children",
-          attrs: { id: "helementus", label: "Enter your age", "pre-text": "" }
-        }),
-        _vm._v(" "),
         _vm._l(_vm.data, function(item, index) {
           return [
             _c(item.name, {
@@ -37663,8 +37676,6 @@ var render = function() {
             })
           ]
         }),
-        _vm._v(" "),
-        _vm._t("default"),
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
@@ -37724,7 +37735,13 @@ var render = function() {
             }
           }),
           _vm._v(_vm._s(option.text) + " - " + _vm._s(option.cost) + "$"),
-          _c("br")
+          _c("br"),
+          _vm._v(" "),
+          _vm.errors.length
+            ? _c("p", { staticStyle: { color: "red", "font-weight": "600" } }, [
+                _vm._v(_vm._s(_vm.errors[0]))
+              ])
+            : _vm._e()
         ]
       })
     ],
@@ -50593,8 +50610,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\OSPanel\domains\forms\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\OSPanel\domains\forms\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\PerfLogs\OSPanel\domains\forms\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\PerfLogs\OSPanel\domains\forms\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

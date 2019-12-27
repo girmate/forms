@@ -3,14 +3,9 @@
         <form action="/" method="get" @submit.prevent="checkForm">
             <h3>Форма оплаты за услуги</h3>
             <p>Базовая цена: {{ basePrice }}$</p>
-
-            <form-simple-input-component ref="children" id="helementus" label="Enter your age" pre-text=""></form-simple-input-component>
-
             <template v-for="(item, index) in data">
                 <component :is="item.name" :id="item.id" :ref="item.id" label="Enter your age" pre-text=""></component>
             </template>
-
-                        <slot></slot>
             <br>
             <input type="submit" value="К оплате:"/> {{ totalCost }}$
         </form>
@@ -25,7 +20,7 @@
             return {
                 totalCost: 0,
                 components: new Map(),
-                //errors: []
+                componentsValidateFalse: new Set()
             }
         },
         props: {
@@ -39,6 +34,14 @@
                 this.components.set(component.id, component.cost)
                 this.checksum()
             });
+            EventBus.$on('validation', component => {
+                if (component.validate) {
+                    this.componentsValidateFalse.add(component.id)
+                } else {
+                    this.componentsValidateFalse.delete(component.id)
+                }
+            });
+            EventBus.$emit('registration-of-invalid-data');
             EventBus.$emit('tell-your-cost');
         },
         methods: {
