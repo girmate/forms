@@ -26,11 +26,6 @@
                 type: Object,
                 required: true,
             },
-            // preselection: {
-            //     type: Number,
-            //     required: false,
-            //     default: 0
-            // }
         },
         mounted() {
             // EventBus.$on('tell-your-cost', () => {

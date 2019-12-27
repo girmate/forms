@@ -1996,12 +1996,7 @@ __webpack_require__.r(__webpack_exports__);
     options: {
       type: Object,
       required: true
-    } // preselection: {
-    //     type: Number,
-    //     required: false,
-    //     default: 0
-    // }
-
+    }
   },
   mounted: function mounted() {
     // EventBus.$on('tell-your-cost', () => {
