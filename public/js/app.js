@@ -1886,6 +1886,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1909,15 +1910,21 @@ __webpack_require__.r(__webpack_exports__);
       _this.componentsCost.set(component.id, component.cost);
 
       _this.checksum();
-    });
-    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('validation', function (component) {
-      if (component.validate) {
+
+      if (!component.valid) {
         _this.componentsValidateFalse.add(component.id);
       } else {
         _this.componentsValidateFalse["delete"](component.id);
       }
-    });
-    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('registration-of-invalid-data');
+    }); // EventBus.$on('validation', component => {
+    //     if (component.validate) {
+    //         this.componentsValidateFalse.add(component.id)
+    //     } else {
+    //         this.componentsValidateFalse.delete(component.id)
+    //     }
+    // });
+    // EventBus.$emit('registration-of-invalid');
+
     _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('tell-your-cost');
     this.checksum();
   },
@@ -1984,7 +1991,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      picked: 0,
+      selected: 0,
       errors: []
     };
   },
@@ -1999,32 +2006,43 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    // EventBus.$on('tell-your-cost', () => {
-    //     this.onChanged()
-    // })
-    // // EventBus.$on('validate', () => {
+    var _this = this;
+
+    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('tell-your-cost', function () {
+      _this.onChanged();
+    }); // // EventBus.$on('validate', () => {
     // //     this.validate()
     // // });
-    // EventBus.$on('registration-of-invalid-data', () => {
+    // EventBus.$on('registration-of-invalid', () => {
     //     if (!this.checkValid()) {
     //         EventBus.$emit('validation', {id: this.id, validate: false});
     //     }
     // })
-    this.picked = this.options.preselection ? this.options.preselection : 3;
+
+    this.selected = this.options.preselection ? this.options.preselection : 0;
   },
-  computed: {// cost: function () {
-    //     return this.options[this.picked].cost
-    // }
+  computed: {
+    cost: function cost() {
+      return this.options.items[this.selected].cost;
+    }
   },
   methods: {
-    onChanged: function onChanged() {// EventBus.$emit('form-component-changed', {id: this.id, cost: this.cost});
-    } //
-    // validate: function () {
+    onChanged: function onChanged() {
+      _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', {
+        id: this.id,
+        value: this.selected,
+        cost: this.cost,
+        valid: this.isValid()
+      });
+    },
+    isValid: function isValid() {
+      return true;
+    } // validate: function () {
     //     this.errors = [];
     //     this.errors.push('Please enter only number');
     // },
     // checkValid: function () {
-    //     //return (this.picked >= 0) && (this.picked <= this.options)
+    //     //return (this.selected >= 0) && (this.selected <= this.options)
     //     return true
     // },
     // isValid: function () {
@@ -37672,7 +37690,12 @@ var render = function() {
         _c("br"),
         _vm._v(" "),
         _c("input", { attrs: { type: "submit", value: "К оплате:" } }),
-        _vm._v(" " + _vm._s(_vm.totalCost) + "$\n    ")
+        _vm._v(" " + _vm._s(_vm.totalCost) + "$\n        "),
+        _vm.componentsValidateFalse.size
+          ? _c("p", { staticStyle: { color: "red", "font-weight": "600" } }, [
+              _vm._v("Форма невалидна!")
+            ])
+          : _vm._e()
       ],
       2
     )
@@ -37710,17 +37733,17 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.picked,
-                expression: "picked"
+                value: _vm.selected,
+                expression: "selected"
               }
             ],
             key: index,
             attrs: { type: "radio", name: _vm.id },
-            domProps: { value: index, checked: _vm._q(_vm.picked, index) },
+            domProps: { value: index, checked: _vm._q(_vm.selected, index) },
             on: {
               change: [
                 function($event) {
-                  _vm.picked = index
+                  _vm.selected = index
                 },
                 _vm.onChanged
               ]
@@ -50602,8 +50625,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\PerfLogs\OSPanel\domains\forms\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\PerfLogs\OSPanel\domains\forms\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\OSPanel\domains\forms\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\OSPanel\domains\forms\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

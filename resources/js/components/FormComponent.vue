@@ -8,6 +8,7 @@
             </template>
             <br>
             <input type="submit" value="К оплате:"/> {{ totalCost }}$
+            <p v-if="componentsValidateFalse.size" style="color:red; font-weight: 600">Форма невалидна!</p>
         </form>
     </div>
 </template>
@@ -34,15 +35,20 @@
             EventBus.$on('form-component-changed', component => {
                 this.componentsCost.set(component.id, component.cost)
                 this.checksum()
-            });
-            EventBus.$on('validation', component => {
-                if (component.validate) {
+                if (!component.valid) {
                     this.componentsValidateFalse.add(component.id)
                 } else {
                     this.componentsValidateFalse.delete(component.id)
                 }
             });
-            EventBus.$emit('registration-of-invalid-data');
+            // EventBus.$on('validation', component => {
+            //     if (component.validate) {
+            //         this.componentsValidateFalse.add(component.id)
+            //     } else {
+            //         this.componentsValidateFalse.delete(component.id)
+            //     }
+            // });
+            // EventBus.$emit('registration-of-invalid');
             EventBus.$emit('tell-your-cost');
             this.checksum()
         },

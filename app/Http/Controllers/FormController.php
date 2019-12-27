@@ -8,7 +8,7 @@ class FormController extends Controller
 {
     public function index()
     {
-        $form = '<form-component v-bind:base-price=100.33 v-bind:data="[
+        $form = '<form-component v-bind:base-price=100.23 v-bind:data="[
             {
                 type: `component`,
                 name: `form-radio-component`,
