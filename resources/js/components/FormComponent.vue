@@ -4,7 +4,7 @@
             <h3>Форма оплаты за услуги</h3>
             <p>Базовая цена: {{ basePrice }}$</p>
             <template v-for="(item, index) in data">
-                <component :is="item.name" :id="item.id" :ref="item.id" label="Enter your age" pre-text=""></component>
+                <component :is="item.name" :id="item.id" :options="item.options"></component><br>
             </template>
             <br>
             <input type="submit" value="К оплате:"/> {{ totalCost }}$
@@ -19,19 +19,20 @@
         data: function () {
             return {
                 totalCost: 0,
-                components: new Map(),
+                componentsCost: new Map(),
                 componentsValidateFalse: new Set()
             }
         },
         props: {
             basePrice: Number,
             data: {
-                required: false
+                type: Array,
+                required: true
             },
         },
         mounted() {
             EventBus.$on('form-component-changed', component => {
-                this.components.set(component.id, component.cost)
+                this.componentsCost.set(component.id, component.cost)
                 this.checksum()
             });
             EventBus.$on('validation', component => {
@@ -43,11 +44,12 @@
             });
             EventBus.$emit('registration-of-invalid-data');
             EventBus.$emit('tell-your-cost');
+            this.checksum()
         },
         methods: {
             checksum: function () {
                 let summary = Number(this.basePrice)
-                for (let amount of this.components.values()) {
+                for (let amount of this.componentsCost.values()) {
                     summary = summary + amount;
                 }
                 this.totalCost = summary.toFixed(2)

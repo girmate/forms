@@ -1891,21 +1891,22 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       totalCost: 0,
-      components: new Map(),
+      componentsCost: new Map(),
       componentsValidateFalse: new Set()
     };
   },
   props: {
     basePrice: Number,
     data: {
-      required: false
+      type: Array,
+      required: true
     }
   },
   mounted: function mounted() {
     var _this = this;
 
     _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('form-component-changed', function (component) {
-      _this.components.set(component.id, component.cost);
+      _this.componentsCost.set(component.id, component.cost);
 
       _this.checksum();
     });
@@ -1918,6 +1919,7 @@ __webpack_require__.r(__webpack_exports__);
     });
     _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('registration-of-invalid-data');
     _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('tell-your-cost');
+    this.checksum();
   },
   methods: {
     checksum: function checksum() {
@@ -1927,7 +1929,7 @@ __webpack_require__.r(__webpack_exports__);
       var _iteratorError = undefined;
 
       try {
-        for (var _iterator = this.components.values()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        for (var _iterator = this.componentsCost.values()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var amount = _step.value;
           summary = summary + amount;
         }
@@ -1991,53 +1993,49 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       required: true
     },
-    options: Array,
-    preselection: {
-      type: Number,
-      required: false,
-      "default": 0
-    }
+    options: {
+      type: Object,
+      required: true
+    } // preselection: {
+    //     type: Number,
+    //     required: false,
+    //     default: 0
+    // }
+
   },
   mounted: function mounted() {
-    var _this = this;
-
-    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('tell-your-cost', function () {
-      _this.onChanged();
-    }); // EventBus.$on('validate', () => {
-    //     this.validate()
-    // });
-
-    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('registration-of-invalid-data', function () {
-      if (!_this.checkValid()) {
-        _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('validation', {
-          id: _this.id,
-          validate: false
-        });
-      }
-    });
-    this.picked = this.preselection ? this.preselection : 0;
+    // EventBus.$on('tell-your-cost', () => {
+    //     this.onChanged()
+    // })
+    // // EventBus.$on('validate', () => {
+    // //     this.validate()
+    // // });
+    // EventBus.$on('registration-of-invalid-data', () => {
+    //     if (!this.checkValid()) {
+    //         EventBus.$emit('validation', {id: this.id, validate: false});
+    //     }
+    // })
+    this.picked = this.options.preselection ? this.options.preselection : 3;
   },
-  computed: {
-    cost: function cost() {
-      return this.options[this.picked].cost;
-    }
+  computed: {// cost: function () {
+    //     return this.options[this.picked].cost
+    // }
   },
   methods: {
-    onChanged: function onChanged() {
-      _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', {
-        id: this.id,
-        cost: this.cost
-      });
-    },
-    validate: function validate() {
-      this.errors = [];
-      this.errors.push('Please enter only number');
-    },
-    checkValid: function checkValid() {
-      //return (this.picked >= 0) && (this.picked <= this.options)
-      return true;
-    },
-    isValid: function isValid() {}
+    onChanged: function onChanged() {// EventBus.$emit('form-component-changed', {id: this.id, cost: this.cost});
+    } //
+    // validate: function () {
+    //     this.errors = [];
+    //     this.errors.push('Please enter only number');
+    // },
+    // checkValid: function () {
+    //     //return (this.picked >= 0) && (this.picked <= this.options)
+    //     return true
+    // },
+    // isValid: function () {
+    //
+    // },
+
   }
 });
 
@@ -37669,11 +37667,10 @@ var render = function() {
         _vm._l(_vm.data, function(item, index) {
           return [
             _c(item.name, {
-              ref: item.id,
-              refInFor: true,
               tag: "component",
-              attrs: { id: item.id, label: "Enter your age", "pre-text": "" }
-            })
+              attrs: { id: item.id, options: item.options }
+            }),
+            _c("br")
           ]
         }),
         _vm._v(" "),
@@ -37711,7 +37708,7 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm._l(_vm.options, function(option, index) {
+      _vm._l(_vm.options.items, function(option, index) {
         return [
           _c("input", {
             directives: [

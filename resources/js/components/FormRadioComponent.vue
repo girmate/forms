@@ -1,6 +1,6 @@
 <template>
     <div>
-        <template v-for="(option, index) in options">
+        <template v-for="(option, index) in options.items">
             <input type="radio" v-bind:value="index" :key="index" v-model="picked" v-on:change="onChanged" v-bind:name="id"/>{{ option.text }} - {{ option.cost }}$<br>
             <p v-if="errors.length" style="color:red; font-weight: 600">{{ errors[0] }}</p>
         </template>
@@ -22,48 +22,51 @@
                 type: String,
                 required: true
             },
-            options: Array,
-            preselection: {
-                type: Number,
-                required: false,
-                default: 0
-            }
+            options: {
+                type: Object,
+                required: true,
+            },
+            // preselection: {
+            //     type: Number,
+            //     required: false,
+            //     default: 0
+            // }
         },
         mounted() {
-            EventBus.$on('tell-your-cost', () => {
-                this.onChanged()
-            })
-            // EventBus.$on('validate', () => {
-            //     this.validate()
-            // });
-            EventBus.$on('registration-of-invalid-data', () => {
-                if (!this.checkValid()) {
-                    EventBus.$emit('validation', {id: this.id, validate: false});
-                }
-            })
-            this.picked = this.preselection ? this.preselection : 0
+            // EventBus.$on('tell-your-cost', () => {
+            //     this.onChanged()
+            // })
+            // // EventBus.$on('validate', () => {
+            // //     this.validate()
+            // // });
+            // EventBus.$on('registration-of-invalid-data', () => {
+            //     if (!this.checkValid()) {
+            //         EventBus.$emit('validation', {id: this.id, validate: false});
+            //     }
+            // })
+            this.picked = this.options.preselection ? this.options.preselection : 3
         },
         computed: {
-            cost: function () {
-                return this.options[this.picked].cost
-            }
+            // cost: function () {
+            //     return this.options[this.picked].cost
+            // }
         },
         methods: {
             onChanged: function () {
-                EventBus.$emit('form-component-changed', {id: this.id, cost: this.cost});
+                // EventBus.$emit('form-component-changed', {id: this.id, cost: this.cost});
             },
-
-            validate: function () {
-                this.errors = [];
-                this.errors.push('Please enter only number');
-            },
-            checkValid: function () {
-                //return (this.picked >= 0) && (this.picked <= this.options)
-                return true
-            },
-            isValid: function () {
-
-            },
+            //
+            // validate: function () {
+            //     this.errors = [];
+            //     this.errors.push('Please enter only number');
+            // },
+            // checkValid: function () {
+            //     //return (this.picked >= 0) && (this.picked <= this.options)
+            //     return true
+            // },
+            // isValid: function () {
+            //
+            // },
         }
     }
 </script>
