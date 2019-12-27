@@ -1887,6 +1887,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1911,11 +1912,7 @@ __webpack_require__.r(__webpack_exports__);
 
       _this.checksum();
 
-      if (!component.valid) {
-        _this.componentsValidateFalse.add(component.id);
-      } else {
-        _this.componentsValidateFalse["delete"](component.id);
-      }
+      component.valid ? _this.componentsValidateFalse["delete"](component.id) : _this.componentsValidateFalse.add(component.id);
     }); // EventBus.$on('validation', component => {
     //     if (component.validate) {
     //         this.componentsValidateFalse.add(component.id)
@@ -37683,6 +37680,7 @@ var render = function() {
               tag: "component",
               attrs: { id: item.id, options: item.options }
             }),
+            _vm._v(" "),
             _c("br")
           ]
         }),

@@ -4,7 +4,8 @@
             <h3>Форма оплаты за услуги</h3>
             <p>Базовая цена: {{ basePrice }}$</p>
             <template v-for="(item, index) in data">
-                <component :is="item.name" :id="item.id" :options="item.options"></component><br>
+                <component :is="item.name" :id="item.id" :options="item.options"></component>
+                <br>
             </template>
             <br>
             <input type="submit" value="К оплате:"/> {{ totalCost }}$
@@ -33,14 +34,11 @@
         },
         mounted() {
             EventBus.$on('form-component-changed', component => {
-                this.componentsCost.set(component.id, component.cost)
-                this.checksum()
-                if (!component.valid) {
-                    this.componentsValidateFalse.add(component.id)
-                } else {
-                    this.componentsValidateFalse.delete(component.id)
+                    this.componentsCost.set(component.id, component.cost)
+                    this.checksum()
+                    component.valid ? this.componentsValidateFalse.delete(component.id) : this.componentsValidateFalse.add(component.id)
                 }
-            });
+            )
             // EventBus.$on('validation', component => {
             //     if (component.validate) {
             //         this.componentsValidateFalse.add(component.id)
@@ -59,7 +57,8 @@
                     summary = summary + amount;
                 }
                 this.totalCost = summary.toFixed(2)
-            },
+            }
+            ,
             checkForm: function () {
                 // console.log(this.$refs.children.test())
                 this.$refs['el751'][0].test()
