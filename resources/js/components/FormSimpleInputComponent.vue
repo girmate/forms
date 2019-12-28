@@ -1,8 +1,7 @@
 <template>
     <div>
-        <p v-bind:id="id">blabla</p>
         <label v-if="label" v-bind:for="id">{{ label }}</label>
-        <input v-bind:type="type" v-model="message" v-bind:placeholder="placeholder" v-bind:name="id" v-bind:id="id" autocomplete="off" @blur="validate">
+        <input v-bind:type="type" v-model="message" v-bind:placeholder="placeholder" v-bind:name="id" v-bind:id="id" autocomplete="off" @blur="showErrors">
         <p v-if="errors.length" style="color:red; font-weight: 600">{{ errors[0] }}</p>
     </div>
 </template>
@@ -13,8 +12,11 @@
     export default {
         data: function () {
             return {
-                message: '',
                 type: 'text',
+                label: '',
+                message: '',
+                placeholder: 'enter here...',
+                required: false,
                 errors: []
             }
         },
@@ -23,53 +25,40 @@
                 type: String,
                 required: true
             },
-            label: {
-                type: String,
-                required: false,
-                default: ''
-            },
-            preText: {
-                type: String,
-                required: false,
-                default: ''
-            },
-            placeholder: {
-                type: String,
-                required: false,
-                default: 'Enter here...'
-            },
-            onlyNumber: {
-                type: Boolean,
-                required: false,
-                default: false,
-            },
-            required: {
-                type: Boolean,
-                default: true
+            options: {
+                type: Object,
+                required: true,
             },
         },
         mounted() {
-            EventBus.$on('validate', () => {
-                this.validate()
-            });
-            if (this.onlyNumber) {
-                this.type = 'number'
-            }
-            this.message = this.preText ? this.preText : ''
+            this.init()
+            EventBus.$on('tell-your-cost', () => {
+                this.onChanged()
+            })
         },
         methods: {
-            validate: function () {
+            init: function () {
+                this.type = this.options.type ? this.options.type : this.type
+                this.label = this.options.label ? this.options.label : this.label
+                this.placeholder = this.options.placeholder ? this.options.placeholder : this.placeholder
+                this.message = this.options.message ? this.options.message : this.message
+                this.required = this.options.required ? this.options.required : this.required
+            },
+            onChanged: function () {
+                EventBus.$emit('form-component-changed', {id: this.id, value: this.selected, cost: 0, valid: this.isValid()});
+            },
+            isValid: function () {
+                return true
+            },
+            showErrors: function () {
                 this.errors = []
                 if (this.required && this.message === '') {
                     this.errors.push('Please fill this field');
                 }
-                if (this.onlyNumber && this.message !== '' && !(isFinite(this.message))) {
+                if (this.type === 'number' && this.message !== '' && !(isFinite(this.message))) {
                     this.errors.push('Please enter only number');
                 }
             },
-            test: function () {
-                console.log('I AM COMPONENT')
-            }
         }
     }
 </script>

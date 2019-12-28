@@ -1977,7 +1977,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      selected: 0,
+      selected: 2,
       errors: []
     };
   },
@@ -1994,10 +1994,10 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
+    this.init();
     _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('tell-your-cost', function () {
       _this.onChanged();
     });
-    this.selected = this.options.preselection ? this.options.preselection : 0;
   },
   computed: {
     cost: function cost() {
@@ -2005,6 +2005,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    init: function init() {
+      this.selected = this.options.preselection ? this.options.preselection : this.selected;
+    },
     onChanged: function onChanged() {
       _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', {
         id: this.id,
@@ -2123,13 +2126,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      message: '',
       type: 'text',
+      label: '',
+      message: '',
+      placeholder: 'enter here...',
+      required: false,
       errors: []
     };
   },
@@ -2138,58 +2143,48 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       required: true
     },
-    label: {
-      type: String,
-      required: false,
-      "default": ''
-    },
-    preText: {
-      type: String,
-      required: false,
-      "default": ''
-    },
-    placeholder: {
-      type: String,
-      required: false,
-      "default": 'Enter here...'
-    },
-    onlyNumber: {
-      type: Boolean,
-      required: false,
-      "default": false
-    },
-    required: {
-      type: Boolean,
-      "default": true
+    options: {
+      type: Object,
+      required: true
     }
   },
   mounted: function mounted() {
     var _this = this;
 
-    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('validate', function () {
-      _this.validate();
+    this.init();
+    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('tell-your-cost', function () {
+      _this.onChanged();
     });
-
-    if (this.onlyNumber) {
-      this.type = 'number';
-    }
-
-    this.message = this.preText ? this.preText : '';
   },
   methods: {
-    validate: function validate() {
+    init: function init() {
+      this.type = this.options.type ? this.options.type : this.type;
+      this.label = this.options.label ? this.options.label : this.label;
+      this.placeholder = this.options.placeholder ? this.options.placeholder : this.placeholder;
+      this.message = this.options.message ? this.options.message : this.message;
+      this.required = this.options.required ? this.options.required : this.required;
+    },
+    onChanged: function onChanged() {
+      _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', {
+        id: this.id,
+        value: this.selected,
+        cost: 0,
+        valid: this.isValid()
+      });
+    },
+    isValid: function isValid() {
+      return true;
+    },
+    showErrors: function showErrors() {
       this.errors = [];
 
       if (this.required && this.message === '') {
         this.errors.push('Please fill this field');
       }
 
-      if (this.onlyNumber && this.message !== '' && !isFinite(this.message)) {
+      if (this.type === 'number' && this.message !== '' && !isFinite(this.message)) {
         this.errors.push('Please enter only number');
       }
-    },
-    test: function test() {
-      console.log('I AM COMPONENT');
     }
   }
 });
@@ -37834,8 +37829,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("p", { attrs: { id: _vm.id } }, [_vm._v("blabla")]),
-    _vm._v(" "),
     _vm.label
       ? _c("label", { attrs: { for: _vm.id } }, [_vm._v(_vm._s(_vm.label))])
       : _vm._e(),
@@ -37863,7 +37856,7 @@ var render = function() {
               : _vm.message
           },
           on: {
-            blur: _vm.validate,
+            blur: _vm.showErrors,
             change: function($event) {
               var $$a = _vm.message,
                 $$el = $event.target,
@@ -37902,7 +37895,7 @@ var render = function() {
           },
           domProps: { checked: _vm._q(_vm.message, null) },
           on: {
-            blur: _vm.validate,
+            blur: _vm.showErrors,
             change: function($event) {
               _vm.message = null
             }
@@ -37926,7 +37919,7 @@ var render = function() {
           },
           domProps: { value: _vm.message },
           on: {
-            blur: _vm.validate,
+            blur: _vm.showErrors,
             input: function($event) {
               if ($event.target.composing) {
                 return

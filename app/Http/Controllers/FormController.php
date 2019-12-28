@@ -25,6 +25,32 @@ class FormController extends Controller
                     preselection: 1
                 }
             },
+            {
+                type: `component`,
+                name: `form-radio-component`,
+                id: `element102`,
+                options:
+                {
+                    items:
+                    [
+                        {text: `Мир`, cost: 22.22},
+                        {text: `Труд`, cost: 33.33},
+                        {text: `Май`, cost: 77.77},
+                    ],
+                    preselection: 1
+                }
+            },
+            {
+                type: `component`,
+                name: `form-simple-input-component`,
+                id: `element222`,
+                options:
+                {
+                    label: `Your level`,
+                    type: `number`,
+                    required: true
+                }
+            },
         ]"></form-component>';
 
 
