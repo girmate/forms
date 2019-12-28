@@ -13,7 +13,7 @@
     export default {
         data: function () {
             return {
-                selected: 0,
+                selected: 2,
                 errors: []
             }
         },
@@ -28,10 +28,10 @@
             },
         },
         mounted() {
+            this.init()
             EventBus.$on('tell-your-cost', () => {
                 this.onChanged()
             })
-            this.selected = this.options.preselection ? this.options.preselection : 0
         },
         computed: {
             cost: function () {
@@ -39,6 +39,9 @@
             }
         },
         methods: {
+            init: function () {
+                this.selected = this.options.preselection ? this.options.preselection : this.selected
+            },
             onChanged: function () {
                 EventBus.$emit('form-component-changed', {id: this.id, value: this.selected, cost: this.cost, valid: this.isValid()});
             },
