@@ -20,9 +20,21 @@ class FormController extends Controller
                         {text: `Не производить работы`, cost: 0},
                         {text: `Шлифовальные работы`, cost: 39.37},
                         {text: `Покраска`, cost: 211.77},
-                        {text: `Сушка атмосферная`, cost: 11.22}
+                        {text: `Сушка атмосферная`, cost: 11.22},
+                        {text: `Сушка атмосферная`, cost: -0.23}
                     ],
                     preselection: 0
+                }
+            },
+            {
+                type: `component`,
+                name: `form-simple-input-component`,
+                id: `element221`,
+                options:
+                {
+                    label: `Your level`,
+                    type: `number`,
+                    required: true
                 }
             },
             {

@@ -2,8 +2,8 @@
     <div>
         <template v-for="(option, index) in options.items">
             <input type="radio" v-bind:value="index" :key="index" v-model="selected" v-on:change="onChanged" v-bind:name="id"/>{{ option.text }} - {{ option.cost }}$<br>
-            <p v-if="errors.length" style="color:red; font-weight: 600">{{ errors[0] }}</p>
         </template>
+        <span v-if="errors.length" style="color:red; font-weight: 600">{{ errors[0] }}</span>
     </div>
 </template>
 
@@ -30,7 +30,10 @@
         mounted() {
             this.init()
             EventBus.$on('tell-your-cost', () => {
-                this.onChanged()
+                this.sendStatus()
+            })
+            EventBus.$on('show-errors', () => {
+                this.showErrors()
             })
         },
         computed: {
@@ -43,21 +46,24 @@
                 this.selected = this.options.preselection ? this.options.preselection : this.selected
             },
             onChanged: function () {
-                EventBus.$emit('form-component-changed', {id: this.id, value: this.selected, cost: this.cost, valid: this.isValid()});
+                this.sendStatus()
             },
             isValid: function () {
-                return true
+                return this.ruleInvalidRange()
+            },
+            ruleInvalidRange: function () {
+                return this.selected >= 0 && this.selected < this.options.items.length
+            },
+            showErrors: function () {
+                this.errors = []
+                if (!this.ruleInvalidRange()) {
+                    this.errors.push('Check your select');
+                }
+            },
+            sendStatus: function () {
+                EventBus.$emit('form-component-changed', {id: this.id, value: this.selected, cost: this.cost, valid: this.isValid()});
             }
 
-
-            // validate: function () {
-            //     this.errors = [];
-            //     this.errors.push('Please enter only number');
-            // },
-            // checkValid: function () {
-            //     //return (this.selected >= 0) && (this.selected <= this.options)
-            //     return true
-            // },
         }
     }
 </script>

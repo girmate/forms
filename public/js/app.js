@@ -1887,14 +1887,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       totalCost: 0,
       componentsCost: new Map(),
-      componentsValidateFalse: new Set()
+      componentsValidateFalse: new Set(),
+      hasErrors: false
     };
   },
   props: {
@@ -1913,6 +1913,7 @@ __webpack_require__.r(__webpack_exports__);
       _this.checksum();
 
       component.valid ? _this.componentsValidateFalse["delete"](component.id) : _this.componentsValidateFalse.add(component.id);
+      _this.hasErrors = _this.componentsValidateFalse.size > 0;
     });
     _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('tell-your-cost');
     this.checksum();
@@ -1947,7 +1948,13 @@ __webpack_require__.r(__webpack_exports__);
       this.totalCost = summary.toFixed(2);
     },
     onSubmit: function onSubmit(event) {
-      event.preventDefault();
+      if (this.hasErrors) {
+        _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('show-errors');
+        event.preventDefault();
+        return;
+      }
+
+      event.target.submit();
     }
   }
 });
@@ -1996,7 +2003,10 @@ __webpack_require__.r(__webpack_exports__);
 
     this.init();
     _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('tell-your-cost', function () {
-      _this.onChanged();
+      _this.sendStatus();
+    });
+    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('show-errors', function () {
+      _this.showErrors();
     });
   },
   computed: {
@@ -2009,24 +2019,29 @@ __webpack_require__.r(__webpack_exports__);
       this.selected = this.options.preselection ? this.options.preselection : this.selected;
     },
     onChanged: function onChanged() {
+      this.sendStatus();
+    },
+    isValid: function isValid() {
+      return this.ruleInvalidRange();
+    },
+    ruleInvalidRange: function ruleInvalidRange() {
+      return this.selected >= 0 && this.selected < this.options.items.length;
+    },
+    showErrors: function showErrors() {
+      this.errors = [];
+
+      if (!this.ruleInvalidRange()) {
+        this.errors.push('Check your select');
+      }
+    },
+    sendStatus: function sendStatus() {
       _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', {
         id: this.id,
         value: this.selected,
         cost: this.cost,
         valid: this.isValid()
       });
-    },
-    isValid: function isValid() {
-      return true;
-    } // validate: function () {
-    //     this.errors = [];
-    //     this.errors.push('Please enter only number');
-    // },
-    // checkValid: function () {
-    //     //return (this.selected >= 0) && (this.selected <= this.options)
-    //     return true
-    // },
-
+    }
   }
 });
 
@@ -2125,7 +2140,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2153,7 +2167,10 @@ __webpack_require__.r(__webpack_exports__);
 
     this.init();
     _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('tell-your-cost', function () {
-      _this.onChanged();
+      _this.sendStatus();
+    });
+    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('show-errors', function () {
+      _this.showErrors();
     });
   },
   methods: {
@@ -2163,9 +2180,6 @@ __webpack_require__.r(__webpack_exports__);
       this.placeholder = this.options.placeholder ? this.options.placeholder : this.placeholder;
       this.message = this.options.message ? this.options.message : this.message;
       this.required = this.options.required ? this.options.required : this.required;
-    },
-    onChanged: function onChanged() {
-      this.sendStatus();
     },
     isValid: function isValid() {
       return this.ruleRequired() && this.ruleIsNumber();
@@ -2194,8 +2208,6 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.ruleIsNumber()) {
         this.errors.push('Please enter only number');
       }
-
-      this.sendStatus();
     },
     sendStatus: function sendStatus() {
       _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', {
@@ -37661,7 +37673,16 @@ var render = function() {
         }
       },
       [
-        _c("h3", [_vm._v("Форма оплаты за услуги")]),
+        _c("h3", [
+          _vm._v("Форма оплаты за услуги "),
+          _vm.hasErrors
+            ? _c(
+                "span",
+                { staticStyle: { color: "red", "font-weight": "200" } },
+                [_vm._v("(невалидна!)")]
+              )
+            : _vm._e()
+        ]),
         _vm._v(" "),
         _c("p", [_vm._v("Базовая цена: " + _vm._s(_vm.basePrice) + "$")]),
         _vm._v(" "),
@@ -37679,12 +37700,7 @@ var render = function() {
         _c("br"),
         _vm._v(" "),
         _c("input", { attrs: { type: "submit", value: "К оплате:" } }),
-        _vm._v(" " + _vm._s(_vm.totalCost) + "$\n        "),
-        _vm.componentsValidateFalse.size
-          ? _c("p", { staticStyle: { color: "red", "font-weight": "600" } }, [
-              _vm._v("Форма невалидна!")
-            ])
-          : _vm._e()
+        _vm._v(" " + _vm._s(_vm.totalCost) + "$\n    ")
       ],
       2
     )
@@ -37739,15 +37755,15 @@ var render = function() {
             }
           }),
           _vm._v(_vm._s(option.text) + " - " + _vm._s(option.cost) + "$"),
-          _c("br"),
-          _vm._v(" "),
-          _vm.errors.length
-            ? _c("p", { staticStyle: { color: "red", "font-weight": "600" } }, [
-                _vm._v(_vm._s(_vm.errors[0]))
-              ])
-            : _vm._e()
+          _c("br")
         ]
-      })
+      }),
+      _vm._v(" "),
+      _vm.errors.length
+        ? _c("span", { staticStyle: { color: "red", "font-weight": "600" } }, [
+            _vm._v(_vm._s(_vm.errors[0]))
+          ])
+        : _vm._e()
     ],
     2
   )
@@ -37875,6 +37891,7 @@ var render = function() {
               : _vm.message
           },
           on: {
+            keyup: _vm.sendStatus,
             blur: _vm.showErrors,
             change: function($event) {
               var $$a = _vm.message,
@@ -37914,6 +37931,7 @@ var render = function() {
           },
           domProps: { checked: _vm._q(_vm.message, null) },
           on: {
+            keyup: _vm.sendStatus,
             blur: _vm.showErrors,
             change: function($event) {
               _vm.message = null
@@ -37938,6 +37956,7 @@ var render = function() {
           },
           domProps: { value: _vm.message },
           on: {
+            keyup: _vm.sendStatus,
             blur: _vm.showErrors,
             input: function($event) {
               if ($event.target.composing) {
@@ -37947,9 +37966,8 @@ var render = function() {
             }
           }
         }),
-    _vm._v(" "),
     _vm.errors.length
-      ? _c("p", { staticStyle: { color: "red", "font-weight": "600" } }, [
+      ? _c("span", { staticStyle: { color: "red", "font-weight": "600" } }, [
           _vm._v(_vm._s(_vm.errors[0]))
         ])
       : _vm._e()

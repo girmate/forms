@@ -1,8 +1,7 @@
 <template>
     <div>
         <label v-if="label" v-bind:for="id">{{ label }}</label>
-        <input v-bind:type="type" v-model="message" v-bind:placeholder="placeholder" v-bind:name="id" v-bind:id="id" autocomplete="off" @blur="showErrors">
-        <p v-if="errors.length" style="color:red; font-weight: 600">{{ errors[0] }}</p>
+        <input v-bind:type="type" v-model="message" v-bind:placeholder="placeholder" v-bind:name="id" v-bind:id="id" autocomplete="off" @keyup="sendStatus" @blur="showErrors"><span v-if="errors.length" style="color:red; font-weight: 600">{{ errors[0] }}</span>
     </div>
 </template>
 
@@ -33,7 +32,10 @@
         mounted() {
             this.init()
             EventBus.$on('tell-your-cost', () => {
-                this.onChanged()
+                this.sendStatus()
+            })
+            EventBus.$on('show-errors', () => {
+                this.showErrors()
             })
         },
         methods: {
@@ -43,9 +45,6 @@
                 this.placeholder = this.options.placeholder ? this.options.placeholder : this.placeholder
                 this.message = this.options.message ? this.options.message : this.message
                 this.required = this.options.required ? this.options.required : this.required
-            },
-            onChanged: function () {
-                this.sendStatus()
             },
             isValid: function () {
                 return this.ruleRequired() && this.ruleIsNumber()
@@ -70,7 +69,6 @@
                 if (!this.ruleIsNumber()) {
                     this.errors.push('Please enter only number');
                 }
-                this.sendStatus()
             },
             sendStatus: function () {
                 EventBus.$emit('form-component-changed', {id: this.id, value: this.selected, cost: 0, valid: this.isValid()});

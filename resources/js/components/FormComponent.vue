@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <form action="/" method="get" @submit="onSubmit($event)">
-            <h3>Форма оплаты за услуги</h3>
+            <h3>Форма оплаты за услуги <span v-if="hasErrors" style="color:red; font-weight: 200">(невалидна!)</span></h3>
             <p>Базовая цена: {{ basePrice }}$</p>
             <template v-for="(item, index) in data">
                 <component :is="item.name" :id="item.id" :options="item.options"></component>
@@ -9,7 +9,6 @@
             </template>
             <br>
             <input type="submit" value="К оплате:"/> {{ totalCost }}$
-            <p v-if="componentsValidateFalse.size" style="color:red; font-weight: 600">Форма невалидна!</p>
         </form>
     </div>
 </template>
@@ -22,7 +21,8 @@
             return {
                 totalCost: 0,
                 componentsCost: new Map(),
-                componentsValidateFalse: new Set()
+                componentsValidateFalse: new Set(),
+                hasErrors: false
             }
         },
         props: {
@@ -37,6 +37,7 @@
                     this.componentsCost.set(component.id, component.cost)
                     this.checksum()
                     component.valid ? this.componentsValidateFalse.delete(component.id) : this.componentsValidateFalse.add(component.id)
+                    this.hasErrors = this.componentsValidateFalse.size > 0
                 }
             )
             EventBus.$emit('tell-your-cost');
@@ -51,9 +52,12 @@
                 this.totalCost = summary.toFixed(2)
             },
             onSubmit: function (event) {
-
-
-                event.preventDefault()
+                if (this.hasErrors) {
+                    EventBus.$emit('show-errors');
+                    event.preventDefault()
+                    return
+                }
+                event.target.submit()
             }
         }
     }
