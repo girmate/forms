@@ -21,14 +21,14 @@ class FormController extends Controller
                         {text: `Шлифовальные работы`, cost: 39.37},
                         {text: `Покраска`, cost: 211.77},
                         {text: `Сушка атмосферная`, cost: 11.22},
-                        {text: `Сушка атмосферная`, cost: -0.23}
+                        {text: `Без сушки`, cost: -0.23}
                     ],
                     preselection: 0
                 }
             },
             {
                 type: `component`,
-                name: `form-simple-input-component`,
+                name: `form-input-component`,
                 id: `element221`,
                 options:
                 {
@@ -54,7 +54,7 @@ class FormController extends Controller
             },
             {
                 type: `component`,
-                name: `form-simple-input-component`,
+                name: `form-input-component`,
                 id: `element222`,
                 options:
                 {
