@@ -2031,7 +2031,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     ruleIsNumber: function ruleIsNumber() {
       if (this.message !== '' && this.type === 'number') {
-        return isFinite(this.message);
+        return isFinite(this.message) && this.message >= 0;
       }
 
       return true;
@@ -37756,25 +37756,30 @@ var render = function() {
               : _vm.message
           },
           on: {
-            keyup: _vm.sendStatus,
-            blur: _vm.showErrors,
-            change: function($event) {
-              var $$a = _vm.message,
-                $$el = $event.target,
-                $$c = $$el.checked ? true : false
-              if (Array.isArray($$a)) {
-                var $$v = null,
-                  $$i = _vm._i($$a, $$v)
-                if ($$el.checked) {
-                  $$i < 0 && (_vm.message = $$a.concat([$$v]))
+            change: [
+              function($event) {
+                var $$a = _vm.message,
+                  $$el = $event.target,
+                  $$c = $$el.checked ? true : false
+                if (Array.isArray($$a)) {
+                  var $$v = null,
+                    $$i = _vm._i($$a, $$v)
+                  if ($$el.checked) {
+                    $$i < 0 && (_vm.message = $$a.concat([$$v]))
+                  } else {
+                    $$i > -1 &&
+                      (_vm.message = $$a
+                        .slice(0, $$i)
+                        .concat($$a.slice($$i + 1)))
+                  }
                 } else {
-                  $$i > -1 &&
-                    (_vm.message = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+                  _vm.message = $$c
                 }
-              } else {
-                _vm.message = $$c
-              }
-            }
+              },
+              _vm.sendStatus
+            ],
+            keyup: _vm.sendStatus,
+            blur: _vm.showErrors
           }
         })
       : _vm.type === "radio"
@@ -37796,11 +37801,14 @@ var render = function() {
           },
           domProps: { checked: _vm._q(_vm.message, null) },
           on: {
+            change: [
+              function($event) {
+                _vm.message = null
+              },
+              _vm.sendStatus
+            ],
             keyup: _vm.sendStatus,
-            blur: _vm.showErrors,
-            change: function($event) {
-              _vm.message = null
-            }
+            blur: _vm.showErrors
           }
         })
       : _c("input", {
@@ -37821,6 +37829,7 @@ var render = function() {
           },
           domProps: { value: _vm.message },
           on: {
+            change: _vm.sendStatus,
             keyup: _vm.sendStatus,
             blur: _vm.showErrors,
             input: function($event) {
