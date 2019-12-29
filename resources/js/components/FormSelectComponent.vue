@@ -1,8 +1,8 @@
 <template>
     <div>
-        <label v-if="label" v-bind:for="id">{{ label }}</label>
-        <select v-model="selectedItem" v-on:change="onChanged" v-bind:name="id" v-bind:id="id">
-            <option v-for="(option, index) in options" v-bind:value="index" :key="index">
+        <label v-if="options.label" v-bind:for="id">{{ options.label }}</label>
+        <select v-model="selected" v-on:change="onChanged" v-bind:name="id" v-bind:id="id">
+            <option v-for="(option, index) in options.items" v-bind:value="index" :key="index">
                 {{ option.text }} - {{ option.cost }}$
             </option>
         </select>
@@ -15,47 +15,69 @@
     export default {
         data: function () {
             return {
-                selectedItem: 0,
+                selected: 0,
+                label: '',
+                prompt: false,
+                required: false,
+                errors: []
             }
         },
         props: {
             id: {
                 type: String,
-                required: true
+                required: false
             },
-            options: Array,
-            label: {
-                type: String,
-                required: false,
-                default: ''
+            options: {
+                type: Object,
+                required: true,
             },
-            preSelection: {
-                type: Number,
-                required: false,
-                default: 0
-            }
         },
         mounted() {
+            this.init()
             EventBus.$on('tell-your-cost', () => {
-                this.onChanged()
-            });
-            EventBus.$on('validate', () => {
-                this.validate()
-            });
-            this.selectedItem = this.preSelection ? this.preSelection : 0
+                this.sendStatus()
+            })
+            EventBus.$on('show-errors', () => {
+                this.showErrors()
+            })
         },
         computed: {
             cost: function () {
-                return this.options[this.selectedItem].cost
+                return this.options.items[this.selected].cost
             }
         },
         methods: {
-            onChanged: function () {
-                EventBus.$emit('form-component-changed', {id: this.id, cost: this.cost});
+            init: function () {
+                this.selected = this.options.selected ? this.options.selected : this.selected
+                this.label = this.options.label ? this.options.label : this.label
+                this.prompt = this.options.prompt ? this.options.prompt : this.prompt
+                this.required = this.options.required ? this.options.required : this.required
             },
-            validate: function () {
-                console.log('i am validate)')
+            onChanged: function () {
+                this.sendStatus()
+            },
+            isValid: function () {
+                return this.ruleInvalidRange() && this.rulePrompt()
+            },
+            ruleInvalidRange: function () {
+                return this.selected >= 0 && this.selected < this.options.items.length
+            },
+            rulePrompt: function () {
+                if (this.required && this.prompt) {
+                    return this.selected !== 0
+                }
+                return true
+            },
+            showErrors: function () {
+                this.errors = []
+                if (!this.ruleInvalidRange()) {
+                    this.errors.push('Check your select');
+                }
+            },
+            sendStatus: function () {
+                EventBus.$emit('form-component-changed', {id: this.id, value: this.selected, cost: this.cost, valid: this.isValid()});
             }
+
         }
     }
 </script>

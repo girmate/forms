@@ -2115,7 +2115,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     init: function init() {
-      this.selected = this.options.preselection ? this.options.preselection : this.selected;
+      this.selected = this.options.selected ? this.options.selected : this.selected;
     },
     onChanged: function onChanged() {
       this.sendStatus();
@@ -2171,51 +2171,76 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      selectedItem: 0
+      selected: 0,
+      label: '',
+      prompt: false,
+      required: false,
+      errors: []
     };
   },
   props: {
     id: {
       type: String,
+      required: false
+    },
+    options: {
+      type: Object,
       required: true
-    },
-    options: Array,
-    label: {
-      type: String,
-      required: false,
-      "default": ''
-    },
-    preSelection: {
-      type: Number,
-      required: false,
-      "default": 0
     }
   },
   mounted: function mounted() {
     var _this = this;
 
+    this.init();
     _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('tell-your-cost', function () {
-      _this.onChanged();
+      _this.sendStatus();
     });
-    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('validate', function () {
-      _this.validate();
+    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('show-errors', function () {
+      _this.showErrors();
     });
-    this.selectedItem = this.preSelection ? this.preSelection : 0;
   },
   computed: {
     cost: function cost() {
-      return this.options[this.selectedItem].cost;
+      return this.options.items[this.selected].cost;
     }
   },
   methods: {
+    init: function init() {
+      this.selected = this.options.selected ? this.options.selected : this.selected;
+      this.label = this.options.label ? this.options.label : this.label;
+      this.prompt = this.options.prompt ? this.options.prompt : this.prompt;
+      this.required = this.options.required ? this.options.required : this.required;
+    },
     onChanged: function onChanged() {
+      this.sendStatus();
+    },
+    isValid: function isValid() {
+      return this.ruleInvalidRange() && this.rulePrompt();
+    },
+    ruleInvalidRange: function ruleInvalidRange() {
+      return this.selected >= 0 && this.selected < this.options.items.length;
+    },
+    rulePrompt: function rulePrompt() {
+      if (this.required && this.prompt) {
+        return this.selected !== 0;
+      }
+
+      return true;
+    },
+    showErrors: function showErrors() {
+      this.errors = [];
+
+      if (!this.ruleInvalidRange()) {
+        this.errors.push('Check your select');
+      }
+    },
+    sendStatus: function sendStatus() {
       _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', {
         id: this.id,
-        cost: this.cost
+        value: this.selected,
+        cost: this.cost,
+        valid: this.isValid()
       });
-    },
-    validate: function validate() {
-      console.log('i am validate)');
     }
   }
 });
@@ -37932,8 +37957,10 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm.label
-      ? _c("label", { attrs: { for: _vm.id } }, [_vm._v(_vm._s(_vm.label))])
+    _vm.options.label
+      ? _c("label", { attrs: { for: _vm.id } }, [
+          _vm._v(_vm._s(_vm.options.label))
+        ])
       : _vm._e(),
     _vm._v(" "),
     _c(
@@ -37943,8 +37970,8 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.selectedItem,
-            expression: "selectedItem"
+            value: _vm.selected,
+            expression: "selected"
           }
         ],
         attrs: { name: _vm.id, id: _vm.id },
@@ -37959,7 +37986,7 @@ var render = function() {
                   var val = "_value" in o ? o._value : o.value
                   return val
                 })
-              _vm.selectedItem = $event.target.multiple
+              _vm.selected = $event.target.multiple
                 ? $$selectedVal
                 : $$selectedVal[0]
             },
@@ -37967,7 +37994,7 @@ var render = function() {
           ]
         }
       },
-      _vm._l(_vm.options, function(option, index) {
+      _vm._l(_vm.options.items, function(option, index) {
         return _c("option", { key: index, domProps: { value: index } }, [
           _vm._v(
             "\n            " +

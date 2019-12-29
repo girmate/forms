@@ -15,6 +15,7 @@ class FormController extends Controller
                 id: `element101`,
                 options:
                 {
+                    selected: 0,
                     items:
                     [
                         {text: `Не производить работы`, cost: 0},
@@ -23,7 +24,26 @@ class FormController extends Controller
                         {text: `Сушка атмосферная`, cost: 11.22},
                         {text: `Без сушки`, cost: -0.23}
                     ],
-                    preselection: 0
+                }
+            },
+            {
+                type: `component`,
+                name: `form-select-component`,
+                id: `element333`,
+                options:
+                {
+                    label: `Your mission 2020`,
+                    prompt: true,
+                    selected: 0,
+                    required: true,
+                    items:
+                        [
+                            {text: `Планета Сатурн`, cost: 0.02},
+                            {text: `Планета Венера`, cost: 0.02},
+                            {text: `Планета Меркурий`, cost: 0.02},
+                            {text: `Марс планета?`, cost: 0.01},
+                            {text: `Планета Минус`, cost: -0.23}
+                        ],
                 }
             },
             {
@@ -34,22 +54,24 @@ class FormController extends Controller
                 {
                     label: `Your level`,
                     type: `number`,
+                    message: `1`,
                     required: true
                 }
             },
+
             {
                 type: `component`,
                 name: `form-radio-component`,
                 id: `element102`,
                 options:
                 {
+                    selected: 0,
                     items:
                     [
                         {text: `Мир`, cost: 0},
                         {text: `Труд`, cost: 33.33},
                         {text: `Май`, cost: 77.77},
                     ],
-                    preselection: 0
                 }
             },
             {
@@ -60,6 +82,7 @@ class FormController extends Controller
                 {
                     label: `Your level`,
                     type: `text`,
+                    message: `1`,
                     required: true
                 }
             },

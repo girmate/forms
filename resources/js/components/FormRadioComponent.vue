@@ -43,7 +43,7 @@
         },
         methods: {
             init: function () {
-                this.selected = this.options.preselection ? this.options.preselection : this.selected
+                this.selected = this.options.selected ? this.options.selected : this.selected
             },
             onChanged: function () {
                 this.sendStatus()
