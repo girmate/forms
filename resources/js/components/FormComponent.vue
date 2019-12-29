@@ -54,7 +54,6 @@
 
 
                 event.preventDefault()
-                //EventBus.$emit('validate');
             }
         }
     }

@@ -17,7 +17,7 @@ class FormController extends Controller
                 {
                     items:
                     [
-                        {text: `Кузовные работы`, cost: 51.51},
+                        {text: `Не производить работы`, cost: 0},
                         {text: `Шлифовальные работы`, cost: 39.37},
                         {text: `Покраска`, cost: 211.77},
                         {text: `Сушка атмосферная`, cost: 11.22}
@@ -48,7 +48,7 @@ class FormController extends Controller
                 {
                     label: `Your level`,
                     type: `number`,
-                    required: true
+                    required: false
                 }
             },
         ]"></form-component>';

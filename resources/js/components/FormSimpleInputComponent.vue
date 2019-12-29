@@ -48,14 +48,27 @@
                 EventBus.$emit('form-component-changed', {id: this.id, value: this.selected, cost: 0, valid: this.isValid()});
             },
             isValid: function () {
+                console.log(this.ruleIsNumber())
+                return this.ruleRequired() && this.ruleIsNumber()
+            },
+            ruleRequired: function () {
+                if (this.required) {
+                    return this.message !== ''
+                }
+                return true
+            },
+            ruleIsNumber: function () {
+                if (this.message !== '' && this.type === 'number') {
+                    return isFinite(this.message)
+                }
                 return true
             },
             showErrors: function () {
                 this.errors = []
-                if (this.required && this.message === '') {
+                if (!this.ruleRequired()) {
                     this.errors.push('Please fill this field');
                 }
-                if (this.type === 'number' && this.message !== '' && !(isFinite(this.message))) {
+                if (!this.ruleIsNumber()) {
                     this.errors.push('Please enter only number');
                 }
             },

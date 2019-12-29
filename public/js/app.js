@@ -1947,7 +1947,7 @@ __webpack_require__.r(__webpack_exports__);
       this.totalCost = summary.toFixed(2);
     },
     onSubmit: function onSubmit(event) {
-      event.preventDefault(); //EventBus.$emit('validate');
+      event.preventDefault();
     }
   }
 });
@@ -2173,16 +2173,31 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     isValid: function isValid() {
+      console.log(this.ruleIsNumber());
+      return this.ruleRequired() && this.ruleIsNumber();
+    },
+    ruleRequired: function ruleRequired() {
+      if (this.required) {
+        return this.message !== '';
+      }
+
+      return true;
+    },
+    ruleIsNumber: function ruleIsNumber() {
+      if (this.message !== '' && this.type === 'number') {
+        return isFinite(this.message);
+      }
+
       return true;
     },
     showErrors: function showErrors() {
       this.errors = [];
 
-      if (this.required && this.message === '') {
+      if (!this.ruleRequired()) {
         this.errors.push('Please fill this field');
       }
 
-      if (this.type === 'number' && this.message !== '' && !isFinite(this.message)) {
+      if (!this.ruleIsNumber()) {
         this.errors.push('Please enter only number');
       }
     }
