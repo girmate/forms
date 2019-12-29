@@ -38,11 +38,29 @@ class FormController extends Controller
                     required: true,
                     items:
                         [
-                            {text: `Планета Сатурн`, cost: 0.02},
+                            {text: `Выберите...`, cost: 0.00},
                             {text: `Планета Венера`, cost: 0.02},
                             {text: `Планета Меркурий`, cost: 0.02},
                             {text: `Марс планета?`, cost: 0.01},
                             {text: `Планета Минус`, cost: -0.23}
+                        ],
+                }
+            },
+            {
+                type: `component`,
+                name: `form-select-component`,
+                id: `element444`,
+                options:
+                {
+                    label: `Your home`,
+                    prompt: false,
+                    selected: 0,
+                    required: true,
+                    items:
+                        [
+                            {text: `Битумные сплавы`, cost: 0.07},
+                            {text: `Жидкие гвозди`, cost: 111.02},
+                            {text: `Суперклей`, cost: 0.88},
                         ],
                 }
             },

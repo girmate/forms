@@ -2020,7 +2020,7 @@ __webpack_require__.r(__webpack_exports__);
       this.required = this.options.required ? this.options.required : this.required;
     },
     isValid: function isValid() {
-      return this.ruleRequired() && this.ruleIsNumber();
+      return this.ruleRequired() && this.ruleIsNumber() && this.ruleIsUnsigned();
     },
     ruleRequired: function ruleRequired() {
       if (this.required) {
@@ -2031,7 +2031,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     ruleIsNumber: function ruleIsNumber() {
       if (this.message !== '' && this.type === 'number') {
-        return isFinite(this.message) && this.message >= 0;
+        return isFinite(this.message);
+      }
+
+      return true;
+    },
+    ruleIsUnsigned: function ruleIsUnsigned() {
+      if (this.message !== '' && this.type === 'number') {
+        return this.message >= 0;
       }
 
       return true;
@@ -2045,6 +2052,10 @@ __webpack_require__.r(__webpack_exports__);
 
       if (!this.ruleIsNumber()) {
         this.errors.push('Please enter only number');
+      }
+
+      if (!this.ruleIsUnsigned()) {
+        this.errors.push('Please enter positive number');
       }
     },
     sendStatus: function sendStatus() {
@@ -2167,6 +2178,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2231,7 +2243,11 @@ __webpack_require__.r(__webpack_exports__);
       this.errors = [];
 
       if (!this.ruleInvalidRange()) {
-        this.errors.push('Check your select');
+        this.errors.push('Invalid select');
+      }
+
+      if (!this.rulePrompt()) {
+        this.errors.push('Please, choose');
       }
     },
     sendStatus: function sendStatus() {
@@ -37758,113 +37774,41 @@ var render = function() {
       ? _c("label", { attrs: { for: _vm.id } }, [_vm._v(_vm._s(_vm.label))])
       : _vm._e(),
     _vm._v(" "),
-    _vm.type === "checkbox"
-      ? _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.message,
-              expression: "message"
-            }
-          ],
-          attrs: {
-            placeholder: _vm.placeholder,
-            name: _vm.id,
-            id: _vm.id,
-            autocomplete: "off",
-            type: "checkbox"
-          },
-          domProps: {
-            checked: Array.isArray(_vm.message)
-              ? _vm._i(_vm.message, null) > -1
-              : _vm.message
-          },
-          on: {
-            change: [
-              function($event) {
-                var $$a = _vm.message,
-                  $$el = $event.target,
-                  $$c = $$el.checked ? true : false
-                if (Array.isArray($$a)) {
-                  var $$v = null,
-                    $$i = _vm._i($$a, $$v)
-                  if ($$el.checked) {
-                    $$i < 0 && (_vm.message = $$a.concat([$$v]))
-                  } else {
-                    $$i > -1 &&
-                      (_vm.message = $$a
-                        .slice(0, $$i)
-                        .concat($$a.slice($$i + 1)))
-                  }
-                } else {
-                  _vm.message = $$c
-                }
-              },
-              _vm.sendStatus
-            ],
-            keyup: _vm.sendStatus,
-            blur: _vm.showErrors
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model.trim",
+          value: _vm.message,
+          expression: "message",
+          modifiers: { trim: true }
+        }
+      ],
+      attrs: {
+        type: _vm.type,
+        placeholder: _vm.placeholder,
+        name: _vm.id,
+        id: _vm.id,
+        autocomplete: "off"
+      },
+      domProps: { value: _vm.message },
+      on: {
+        change: _vm.sendStatus,
+        keyup: _vm.sendStatus,
+        blur: [
+          _vm.showErrors,
+          function($event) {
+            return _vm.$forceUpdate()
           }
-        })
-      : _vm.type === "radio"
-      ? _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.message,
-              expression: "message"
-            }
-          ],
-          attrs: {
-            placeholder: _vm.placeholder,
-            name: _vm.id,
-            id: _vm.id,
-            autocomplete: "off",
-            type: "radio"
-          },
-          domProps: { checked: _vm._q(_vm.message, null) },
-          on: {
-            change: [
-              function($event) {
-                _vm.message = null
-              },
-              _vm.sendStatus
-            ],
-            keyup: _vm.sendStatus,
-            blur: _vm.showErrors
+        ],
+        input: function($event) {
+          if ($event.target.composing) {
+            return
           }
-        })
-      : _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.message,
-              expression: "message"
-            }
-          ],
-          attrs: {
-            placeholder: _vm.placeholder,
-            name: _vm.id,
-            id: _vm.id,
-            autocomplete: "off",
-            type: _vm.type
-          },
-          domProps: { value: _vm.message },
-          on: {
-            change: _vm.sendStatus,
-            keyup: _vm.sendStatus,
-            blur: _vm.showErrors,
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.message = $event.target.value
-            }
-          }
-        }),
+          _vm.message = $event.target.value.trim()
+        }
+      }
+    }),
     _vm.errors.length
       ? _c("span", { staticStyle: { color: "red", "font-weight": "600" } }, [
           _vm._v(_vm._s(_vm.errors[0]))
@@ -37957,6 +37901,12 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _vm.errors.length
+      ? _c("span", { staticStyle: { color: "red", "font-weight": "600" } }, [
+          _vm._v(_vm._s(_vm.errors[0]))
+        ])
+      : _vm._e(),
+    _vm._v(" "),
     _vm.options.label
       ? _c("label", { attrs: { for: _vm.id } }, [
           _vm._v(_vm._s(_vm.options.label))

@@ -1,5 +1,6 @@
 <template>
     <div>
+        <span v-if="errors.length" style="color:red; font-weight: 600">{{ errors[0] }}</span>
         <label v-if="options.label" v-bind:for="id">{{ options.label }}</label>
         <select v-model="selected" v-on:change="onChanged" v-bind:name="id" v-bind:id="id">
             <option v-for="(option, index) in options.items" v-bind:value="index" :key="index">
@@ -71,7 +72,10 @@
             showErrors: function () {
                 this.errors = []
                 if (!this.ruleInvalidRange()) {
-                    this.errors.push('Check your select');
+                    this.errors.push('Invalid select');
+                }
+                if (!this.rulePrompt()) {
+                    this.errors.push('Please, choose');
                 }
             },
             sendStatus: function () {

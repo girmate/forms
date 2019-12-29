@@ -1,7 +1,7 @@
 <template>
     <div>
         <label v-if="label" v-bind:for="id">{{ label }}</label>
-        <input v-bind:type="type" v-model="message" v-bind:placeholder="placeholder" v-bind:name="id" v-bind:id="id" autocomplete="off" @change="sendStatus" @keyup="sendStatus" @blur="showErrors"><span v-if="errors.length" style="color:red; font-weight: 600">{{ errors[0] }}</span>
+        <input v-bind:type="type" v-model.trim="message" v-bind:placeholder="placeholder" v-bind:name="id" v-bind:id="id" autocomplete="off" @change="sendStatus" @keyup="sendStatus" @blur="showErrors"><span v-if="errors.length" style="color:red; font-weight: 600">{{ errors[0] }}</span>
     </div>
 </template>
 
@@ -47,7 +47,7 @@
                 this.required = this.options.required ? this.options.required : this.required
             },
             isValid: function () {
-                return this.ruleRequired() && this.ruleIsNumber()
+                return this.ruleRequired() && this.ruleIsNumber() && this.ruleIsUnsigned()
             },
             ruleRequired: function () {
                 if (this.required) {
@@ -57,7 +57,13 @@
             },
             ruleIsNumber: function () {
                 if (this.message !== '' && this.type === 'number') {
-                    return isFinite(this.message) && (this.message >= 0)
+                    return isFinite(this.message)
+                }
+                return true
+            },
+            ruleIsUnsigned: function () {
+                if (this.message !== '' && this.type === 'number') {
+                    return this.message >= 0
                 }
                 return true
             },
@@ -68,6 +74,9 @@
                 }
                 if (!this.ruleIsNumber()) {
                     this.errors.push('Please enter only number');
+                }
+                if (!this.ruleIsUnsigned()) {
+                    this.errors.push('Please enter positive number');
                 }
             },
             sendStatus: function () {
