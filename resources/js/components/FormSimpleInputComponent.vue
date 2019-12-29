@@ -45,10 +45,9 @@
                 this.required = this.options.required ? this.options.required : this.required
             },
             onChanged: function () {
-                EventBus.$emit('form-component-changed', {id: this.id, value: this.selected, cost: 0, valid: this.isValid()});
+                this.sendStatus()
             },
             isValid: function () {
-                console.log(this.ruleIsNumber())
                 return this.ruleRequired() && this.ruleIsNumber()
             },
             ruleRequired: function () {
@@ -71,7 +70,11 @@
                 if (!this.ruleIsNumber()) {
                     this.errors.push('Please enter only number');
                 }
+                this.sendStatus()
             },
+            sendStatus: function () {
+                EventBus.$emit('form-component-changed', {id: this.id, value: this.selected, cost: 0, valid: this.isValid()});
+            }
         }
     }
 </script>

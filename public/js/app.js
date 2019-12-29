@@ -1977,7 +1977,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      selected: 2,
+      selected: 0,
       errors: []
     };
   },
@@ -2165,15 +2165,9 @@ __webpack_require__.r(__webpack_exports__);
       this.required = this.options.required ? this.options.required : this.required;
     },
     onChanged: function onChanged() {
-      _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', {
-        id: this.id,
-        value: this.selected,
-        cost: 0,
-        valid: this.isValid()
-      });
+      this.sendStatus();
     },
     isValid: function isValid() {
-      console.log(this.ruleIsNumber());
       return this.ruleRequired() && this.ruleIsNumber();
     },
     ruleRequired: function ruleRequired() {
@@ -2200,6 +2194,16 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.ruleIsNumber()) {
         this.errors.push('Please enter only number');
       }
+
+      this.sendStatus();
+    },
+    sendStatus: function sendStatus() {
+      _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', {
+        id: this.id,
+        value: this.selected,
+        cost: 0,
+        valid: this.isValid()
+      });
     }
   }
 });

@@ -13,7 +13,7 @@
     export default {
         data: function () {
             return {
-                selected: 2,
+                selected: 0,
                 errors: []
             }
         },

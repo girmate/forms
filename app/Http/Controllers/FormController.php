@@ -22,7 +22,7 @@ class FormController extends Controller
                         {text: `Покраска`, cost: 211.77},
                         {text: `Сушка атмосферная`, cost: 11.22}
                     ],
-                    preselection: 1
+                    preselection: 0
                 }
             },
             {
@@ -33,11 +33,11 @@ class FormController extends Controller
                 {
                     items:
                     [
-                        {text: `Мир`, cost: 22.22},
+                        {text: `Мир`, cost: 0},
                         {text: `Труд`, cost: 33.33},
                         {text: `Май`, cost: 77.77},
                     ],
-                    preselection: 1
+                    preselection: 0
                 }
             },
             {
@@ -47,8 +47,8 @@ class FormController extends Controller
                 options:
                 {
                     label: `Your level`,
-                    type: `number`,
-                    required: false
+                    type: `text`,
+                    required: true
                 }
             },
         ]"></form-component>';
