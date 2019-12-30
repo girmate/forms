@@ -1,6 +1,6 @@
 <template>
     <div>
-        <input type="checkbox" v-bind:name="id" v-bind:id="id" v-model="checked" @change="onChanged">
+        <input type="checkbox" v-bind:name="id" v-bind:id="id" v-model="checked" @change="onChanged" :title="title">
         <label v-bind:for="options.id">Чекбокс {{ cost }}$</label>
     </div>
 </template>
@@ -12,6 +12,7 @@
         data: function () {
             return {
                 checked: false,
+                title: ''
             }
         },
         props: {
@@ -38,6 +39,7 @@
         methods: {
             init: function () {
                 this.checked = this.options.checked ? this.options.checked : this.checked
+                this.title = this.options.title ? this.options.title : this.title
             },
             onChanged: function () {
                 this.sendStatus()
