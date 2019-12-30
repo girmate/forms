@@ -104,6 +104,28 @@ class FormController extends Controller
                     required: true
                 }
             },
+            {
+                type: `component`,
+                name: `form-checkbox-component`,
+                id: `element125`,
+                options:
+                {
+                    label: `Smart boost`,
+                    checked: true,
+                    cost: 1000.0,
+                }
+            },
+            {
+                type: `component`,
+                name: `form-checkbox-component`,
+                id: `element127`,
+                options:
+                {
+                    label: `Crazy boost`,
+                    checked: false,
+                    cost: -100.0,
+                }
+            },
         ]"></form-component>';
 
 
