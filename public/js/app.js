@@ -1978,6 +1978,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -37789,7 +37790,8 @@ var render = function() {
         placeholder: _vm.placeholder,
         name: _vm.id,
         id: _vm.id,
-        autocomplete: "off"
+        autocomplete: "off",
+        min: _vm.type == "number" ? 0 : false
       },
       domProps: { value: _vm.message },
       on: {
@@ -50616,8 +50618,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\OSPanel\domains\forms\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\OSPanel\domains\forms\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\PerfLogs\OSPanel\domains\forms\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\PerfLogs\OSPanel\domains\forms\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
