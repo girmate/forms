@@ -37841,7 +37841,7 @@ var render = function() {
     _c(
       "form",
       {
-        attrs: { action: "/", method: "get" },
+        attrs: { action: "/form", method: "get" },
         on: {
           submit: function($event) {
             return _vm.onSubmit($event)

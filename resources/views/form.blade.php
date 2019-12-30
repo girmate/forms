@@ -85,10 +85,10 @@
         </div>
 
         <div class="links">
-            <a href="{{ route('form') }}">Формы</a>
+            <a href="https://laravel.com/docs">Docs</a>
         </div>
         <hr>
-
+        {!! $form !!}
     </div>
 </div>
 <script src="{{ mix('/js/app.js') }}"></script>

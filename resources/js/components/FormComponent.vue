@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <form action="/" method="get" @submit="onSubmit($event)">
+        <form action="/form" method="get" @submit="onSubmit($event)">
             <h3>Форма оплаты за услуги <span v-if="hasErrors" style="color:red; font-weight: 200">(невалидна!)</span></h3>
             <p>Базовая цена: {{ basePrice }}$</p>
             <template v-for="(item, index) in data">
