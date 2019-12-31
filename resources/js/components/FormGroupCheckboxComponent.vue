@@ -1,7 +1,7 @@
 <template>
     <div>
         <template v-for="(option, index) in options.items">
-            <input type="checkbox" :value="index" :name="id" v-model="checked" @change="onChanged($event)" :disabled="disabled[index]">
+            <input type="checkbox" :value="index" :name="id" v-model="checked" @change="onChanged($event)" :disabled="disabled[index]" :title="option.title">
             <del v-if="disabled[index]">{{ option.label}}-{{ option.cost }}$</del>
             <span v-if="!disabled[index]">{{ option.label}}-{{ option.cost }}$</span>
         </template>

@@ -38004,7 +38004,8 @@ var render = function() {
             attrs: {
               type: "checkbox",
               name: _vm.id,
-              disabled: _vm.disabled[index]
+              disabled: _vm.disabled[index],
+              title: option.title
             },
             domProps: {
               value: index,
