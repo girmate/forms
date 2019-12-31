@@ -113,6 +113,22 @@ class FormController extends Controller
                     label: `Smart boost`,
                     checked: true,
                     cost: 1000.0,
+                    title: ``
+                }
+            },
+            {
+                type: `component`,
+                name: `form-group-checkbox-component`,
+                id: `group-checkbox777`,
+                options:
+                {
+                    items:
+                        [
+                            {label: `Чекбокс 1`, cost: 1, checked: false, title: `Some players`},
+                            {label: `Чекбокс 2`, cost: 10, checked: false, title: `with Pilot`},
+                            {label: `Чекбокс 3`, cost: 100, checked: false, title: `Self Play`},
+                            {label: `Чекбокс 4`, cost: 1000, checked: false, title: `Other options`},
+                        ]
                 }
             },
             {
@@ -124,6 +140,7 @@ class FormController extends Controller
                     label: `Crazy boost`,
                     checked: false,
                     cost: -100.0,
+                    title: `Title for checkbox127`
                 }
             },
         ]"></form-component>';
