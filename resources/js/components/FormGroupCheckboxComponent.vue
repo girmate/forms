@@ -1,7 +1,7 @@
 <template>
     <div>
         <template v-for="(option, index) in options.items">
-            <input type="checkbox" :value="index" v-model="checked" :disabled="!option.checked ? false : true">{{ option.label}}-{{ option.cost }}$
+            <input type="checkbox" :value="index" :name="id" v-model="checked" @change="onChanged($event)" :disabled="disabled(index)">{{ option.label}}-{{ option.cost }}$
         </template>
         <span>Отмеченные имена: {{ checked }}</span>
     </div>
@@ -13,7 +13,7 @@
     export default {
         data: function () {
             return {
-                checked: []
+                checked: [2]
             }
         },
         props: {
@@ -27,27 +27,40 @@
             },
         },
         mounted() {
-            // this.init()
+            this.init()
             EventBus.$on('tell-your-cost', () => {
                 // this.sendStatus()
             })
         },
-        // computed: {
-        //     cost: function () {
-        //         return this.options.items[this.checked].cost
-        //     }
-        // },
-        // methods: {
-        //     init: function () {
-        //         this.checked = this.options.checked ? this.options.checked : this.checked
-        //     },
-        //     onChanged: function () {
-        //         this.sendStatus()
-        //     },
-        //     sendStatus: function () {
-        //         EventBus.$emit('form-component-changed', {id: this.id, value: this.checked, cost: this.cost, valid: true});
-        //     }
-        //
-        // }
+        computed: {
+            cost: function () {
+                return this.checked.length ? this.options.items[this.checked[0]].cost : 0
+            }
+
+        },
+        methods: {
+            init: function () {
+                this.checked = []
+            },
+            onChanged: function (event) {
+                console.log(event.target.value)
+                this.checked = [event.target.value]
+
+                this.sendStatus()
+            },
+            disabled: function (index) {
+                if(!this.checked.length){
+                    return false
+                } else if (this.checked[0] === index) {
+                    return false
+                }
+                return false
+            },
+            sendStatus: function () {
+                EventBus.$emit('form-component-changed', {id: this.id, value: this.checked[0], cost: this.cost, valid: true});
+                console.log(this.cost)
+            }
+
+        }
     }
 </script>

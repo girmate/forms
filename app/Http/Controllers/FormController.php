@@ -34,7 +34,7 @@ class FormController extends Controller
                 {
                     label: `Your mission 2020`,
                     prompt: true,
-                    selected: 0,
+                    selected: 3,
                     required: true,
                     items:
                         [
@@ -125,7 +125,7 @@ class FormController extends Controller
                     items:
                         [
                             {label: `Чекбокс 1`, cost: 1, checked: false, title: `Some players`},
-                            {label: `Чекбокс 2`, cost: 10, checked: false, title: `with Pilot`},
+                            {label: `Чекбокс 2`, cost: 10, checked: true, title: `with Pilot`},
                             {label: `Чекбокс 3`, cost: 100, checked: false, title: `Self Play`},
                             {label: `Чекбокс 4`, cost: 1000, checked: false, title: `Other options`},
                         ]

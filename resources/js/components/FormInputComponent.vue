@@ -1,7 +1,7 @@
 <template>
     <div>
         <label v-if="label" v-bind:for="id">{{ label }}</label>
-        <input v-bind:type="type" v-model.trim="message" v-bind:placeholder="placeholder" v-bind:name="id" v-bind:id="id" autocomplete="off" v-bind:min="type=='number' ? 0: false"
+        <input v-bind:type="type" v-model.trim="message" v-bind:placeholder="placeholder" v-bind:name="id" v-bind:id="id" autocomplete="off" v-bind:min="type==='number' ? 0: false"
                @change="sendStatus" @keyup="sendStatus" @blur="showErrors"><span v-if="errors.length" style="color:red; font-weight: 600">{{ errors[0] }}</span>
     </div>
 </template>

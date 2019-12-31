@@ -2053,7 +2053,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      checked: []
+      checked: [2]
     };
   },
   props: {
@@ -2067,27 +2067,43 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    // this.init()
+    this.init();
     _app__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('tell-your-cost', function () {// this.sendStatus()
     });
-  } // computed: {
-  //     cost: function () {
-  //         return this.options.items[this.checked].cost
-  //     }
-  // },
-  // methods: {
-  //     init: function () {
-  //         this.checked = this.options.checked ? this.options.checked : this.checked
-  //     },
-  //     onChanged: function () {
-  //         this.sendStatus()
-  //     },
-  //     sendStatus: function () {
-  //         EventBus.$emit('form-component-changed', {id: this.id, value: this.checked, cost: this.cost, valid: true});
-  //     }
-  //
-  // }
+  },
+  computed: {
+    cost: function cost() {
+      return this.checked.length ? this.options.items[this.checked[0]].cost : 0;
+    }
+  },
+  methods: {
+    init: function init() {
+      this.checked = [];
+    },
+    onChanged: function onChanged(event) {
+      console.log(event.target.value);
+      this.checked = [event.target.value];
+      this.sendStatus();
+    },
+    disabled: function disabled(index) {
+      if (!this.checked.length) {
+        return false;
+      } else if (this.checked[0] === index) {
+        return false;
+      }
 
+      return false;
+    },
+    sendStatus: function sendStatus() {
+      _app__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', {
+        id: this.id,
+        value: this.checked[0],
+        cost: this.cost,
+        valid: true
+      });
+      console.log(this.cost);
+    }
+  }
 });
 
 /***/ }),
@@ -37984,7 +38000,8 @@ var render = function() {
             ],
             attrs: {
               type: "checkbox",
-              disabled: !option.checked ? false : true
+              name: _vm.id,
+              disabled: _vm.disabled(index)
             },
             domProps: {
               value: index,
@@ -37993,25 +38010,30 @@ var render = function() {
                 : _vm.checked
             },
             on: {
-              change: function($event) {
-                var $$a = _vm.checked,
-                  $$el = $event.target,
-                  $$c = $$el.checked ? true : false
-                if (Array.isArray($$a)) {
-                  var $$v = index,
-                    $$i = _vm._i($$a, $$v)
-                  if ($$el.checked) {
-                    $$i < 0 && (_vm.checked = $$a.concat([$$v]))
+              change: [
+                function($event) {
+                  var $$a = _vm.checked,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = index,
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 && (_vm.checked = $$a.concat([$$v]))
+                    } else {
+                      $$i > -1 &&
+                        (_vm.checked = $$a
+                          .slice(0, $$i)
+                          .concat($$a.slice($$i + 1)))
+                    }
                   } else {
-                    $$i > -1 &&
-                      (_vm.checked = $$a
-                        .slice(0, $$i)
-                        .concat($$a.slice($$i + 1)))
+                    _vm.checked = $$c
                   }
-                } else {
-                  _vm.checked = $$c
+                },
+                function($event) {
+                  return _vm.onChanged($event)
                 }
-              }
+              ]
             }
           }),
           _vm._v(_vm._s(option.label) + "-" + _vm._s(option.cost) + "$\n    ")
@@ -38066,7 +38088,7 @@ var render = function() {
         name: _vm.id,
         id: _vm.id,
         autocomplete: "off",
-        min: _vm.type == "number" ? 0 : false
+        min: _vm.type === "number" ? 0 : false
       },
       domProps: { value: _vm.message },
       on: {
