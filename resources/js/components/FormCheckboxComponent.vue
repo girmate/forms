@@ -45,7 +45,7 @@
                 this.sendStatus()
             },
             sendStatus: function () {
-                EventBus.$emit('form-component-changed', {id: this.id, value: this.checked, cost: this.cost, valid: true});
+                EventBus.$emit('form-component-changed', {id: this.id, cost: this.cost, valid: true});
             }
 
         }

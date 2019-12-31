@@ -1921,7 +1921,6 @@ __webpack_require__.r(__webpack_exports__);
     sendStatus: function sendStatus() {
       _app__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', {
         id: this.id,
-        value: this.checked,
         cost: this.cost,
         valid: true
       });
@@ -2053,7 +2052,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      checked: [2]
+      checked: []
     };
   },
   props: {
@@ -2097,7 +2096,6 @@ __webpack_require__.r(__webpack_exports__);
     sendStatus: function sendStatus() {
       _app__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', {
         id: this.id,
-        value: this.checked[0],
         cost: this.cost,
         valid: true
       });
@@ -2209,7 +2207,6 @@ __webpack_require__.r(__webpack_exports__);
     sendStatus: function sendStatus() {
       _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', {
         id: this.id,
-        value: this.selected,
         cost: 0,
         valid: this.isValid()
       });
@@ -2295,7 +2292,6 @@ __webpack_require__.r(__webpack_exports__);
     sendStatus: function sendStatus() {
       _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', {
         id: this.id,
-        value: this.selected,
         cost: this.cost,
         valid: this.isValid()
       });
@@ -2401,7 +2397,6 @@ __webpack_require__.r(__webpack_exports__);
     sendStatus: function sendStatus() {
       _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', {
         id: this.id,
-        value: this.selected,
         cost: this.cost,
         valid: this.isValid()
       });

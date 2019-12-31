@@ -13,7 +13,7 @@
     export default {
         data: function () {
             return {
-                checked: [2]
+                checked: []
             }
         },
         props: {
@@ -57,7 +57,7 @@
                 return false
             },
             sendStatus: function () {
-                EventBus.$emit('form-component-changed', {id: this.id, value: this.checked[0], cost: this.cost, valid: true});
+                EventBus.$emit('form-component-changed', {id: this.id, cost: this.cost, valid: true});
                 console.log(this.cost)
             }
 

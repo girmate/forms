@@ -79,7 +79,7 @@
                 }
             },
             sendStatus: function () {
-                EventBus.$emit('form-component-changed', {id: this.id, value: this.selected, cost: this.cost, valid: this.isValid()});
+                EventBus.$emit('form-component-changed', {id: this.id, cost: this.cost, valid: this.isValid()});
             }
 
         }
