@@ -2068,36 +2068,25 @@ __webpack_require__.r(__webpack_exports__);
       required: true
     }
   },
-  created: function created() {
-    for (var i = 0; i < this.options.items.length; i++) {
-      if (this.options.items[i].checked === true) {
-        this.checked = [i];
-        this.disabled[i] = false;
-        this.cost = this.options.items[i].cost;
-      } else {
-        this.disabled[i] = true;
-      }
-    }
-  },
   mounted: function mounted() {
     var _this = this;
 
-    //this.init()
+    this.init();
     _app__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('tell-your-cost', function () {
       _this.sendStatus();
     });
   },
   methods: {
-    init: function init() {// for (let i = 0; i < this.options.items.length; i++) {
-      //     if (this.options.items[i].checked === true) {
-      //         this.checked = [i]
-      //         this.disabled[i] = false
-      //         this.cost = this.options.items[i].cost
-      //         break
-      //     } else {
-      //         this.disabled[i] = true
-      //     }
-      // }
+    init: function init() {
+      for (var i = 0; i < this.options.items.length; i++) {
+        if (this.options.items[i].checked === true) {
+          this.checked = [i];
+          this.disabled[i] = false;
+          this.cost = this.options.items[i].cost;
+        } else {
+          this.disabled[i] = true;
+        }
+      }
     },
     onChanged: function onChanged(event) {
       this.checked = event.target.checked ? [event.target.value] : [];
@@ -2105,7 +2094,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (event.target.checked) {
         for (var i = 0; i < this.options.items.length; i++) {
-          this.disabled[i] = event.target.value === i ? false : true;
+          this.disabled[i] = Number(event.target.value) === i ? false : true;
         }
       } else {
         this.disabled.fill(false, 0, this.options.items.length);
@@ -2113,14 +2102,6 @@ __webpack_require__.r(__webpack_exports__);
 
       this.sendStatus();
     },
-    // disabled: function (index) {
-    //     if (!this.checked.length) {
-    //         return false
-    //     } else if (this.checked[0] === index) {
-    //         return true
-    //     }
-    //     return false
-    // },
     sendStatus: function sendStatus() {
       _app__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', {
         id: this.id,
@@ -38032,9 +38013,6 @@ var render = function() {
                 : _vm.checked
             },
             on: {
-              click: function($event) {
-                return _vm.onChanged($event)
-              },
               change: [
                 function($event) {
                   var $$a = _vm.checked,
@@ -38061,11 +38039,20 @@ var render = function() {
               ]
             }
           }),
-          _vm._v(_vm._s(option.label) + "-" + _vm._s(option.cost) + "$\n    ")
+          _vm._v(" "),
+          _vm.disabled[index]
+            ? _c("del", [
+                _vm._v(_vm._s(option.label) + "-" + _vm._s(option.cost) + "$")
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.disabled[index]
+            ? _c("span", [
+                _vm._v(_vm._s(option.label) + "-" + _vm._s(option.cost) + "$")
+              ])
+            : _vm._e()
         ]
-      }),
-      _vm._v(" "),
-      _c("span", [_vm._v("Отмеченные имена: " + _vm._s(_vm.checked))])
+      })
     ],
     2
   )
