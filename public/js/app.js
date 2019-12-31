@@ -2048,11 +2048,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      checked: []
+      checked: [],
+      disabled: [],
+      cost: 0
     };
   },
   props: {
@@ -2065,41 +2068,65 @@ __webpack_require__.r(__webpack_exports__);
       required: true
     }
   },
-  mounted: function mounted() {
-    this.init();
-    _app__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('tell-your-cost', function () {// this.sendStatus()
-    });
-  },
-  computed: {
-    cost: function cost() {
-      return this.checked.length ? this.options.items[this.checked[0]].cost : 0;
+  created: function created() {
+    for (var i = 0; i < this.options.items.length; i++) {
+      if (this.options.items[i].checked === true) {
+        this.checked = [i];
+        this.disabled[i] = false;
+        this.cost = this.options.items[i].cost;
+      } else {
+        this.disabled[i] = true;
+      }
     }
   },
+  mounted: function mounted() {
+    var _this = this;
+
+    //this.init()
+    _app__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('tell-your-cost', function () {
+      _this.sendStatus();
+    });
+  },
   methods: {
-    init: function init() {
-      this.checked = [];
+    init: function init() {// for (let i = 0; i < this.options.items.length; i++) {
+      //     if (this.options.items[i].checked === true) {
+      //         this.checked = [i]
+      //         this.disabled[i] = false
+      //         this.cost = this.options.items[i].cost
+      //         break
+      //     } else {
+      //         this.disabled[i] = true
+      //     }
+      // }
     },
     onChanged: function onChanged(event) {
-      console.log(event.target.value);
-      this.checked = [event.target.value];
-      this.sendStatus();
-    },
-    disabled: function disabled(index) {
-      if (!this.checked.length) {
-        return false;
-      } else if (this.checked[0] === index) {
-        return false;
+      this.checked = event.target.checked ? [event.target.value] : [];
+      this.cost = event.target.checked ? this.options.items[event.target.value].cost : 0;
+
+      if (event.target.checked) {
+        for (var i = 0; i < this.options.items.length; i++) {
+          this.disabled[i] = event.target.value === i ? false : true;
+        }
+      } else {
+        this.disabled.fill(false, 0, this.options.items.length);
       }
 
-      return false;
+      this.sendStatus();
     },
+    // disabled: function (index) {
+    //     if (!this.checked.length) {
+    //         return false
+    //     } else if (this.checked[0] === index) {
+    //         return true
+    //     }
+    //     return false
+    // },
     sendStatus: function sendStatus() {
       _app__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('form-component-changed', {
         id: this.id,
         cost: this.cost,
         valid: true
       });
-      console.log(this.cost);
     }
   }
 });
@@ -37996,7 +38023,7 @@ var render = function() {
             attrs: {
               type: "checkbox",
               name: _vm.id,
-              disabled: _vm.disabled(index)
+              disabled: _vm.disabled[index]
             },
             domProps: {
               value: index,
@@ -38005,6 +38032,9 @@ var render = function() {
                 : _vm.checked
             },
             on: {
+              click: function($event) {
+                return _vm.onChanged($event)
+              },
               change: [
                 function($event) {
                   var $$a = _vm.checked,
