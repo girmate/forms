@@ -44,7 +44,7 @@
             )
 
             // test
-            EventBus.$on('hi-pixel', component => {
+            EventBus.$on('3D-pixel', component => {
                     console.log(component.to)
                 }
             )

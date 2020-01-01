@@ -17,7 +17,7 @@
                 to: 800,
                 prefix: "$",
                 onFinish: function (data) {
-                    EventBus.$emit('hi-pixel', data)
+                    EventBus.$emit('3D-pixel', data)
                 },
             })
         },

@@ -2003,7 +2003,7 @@ __webpack_require__.r(__webpack_exports__);
       _this.hasErrors = _this.componentsValidateFalse.size > 0;
     }); // test
 
-    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('hi-pixel', function (component) {
+    _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('3D-pixel', function (component) {
       console.log(component.to);
     });
     _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('tell-your-cost');
@@ -2379,7 +2379,7 @@ __webpack_require__.r(__webpack_exports__);
       to: 800,
       prefix: "$",
       onFinish: function onFinish(data) {
-        _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('hi-pixel', data);
+        _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('3D-pixel', data);
       }
     });
   },
