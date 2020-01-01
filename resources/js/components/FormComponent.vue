@@ -3,12 +3,12 @@
         <form action="/form" method="get" @submit="onSubmit($event)">
             <h3>Форма оплаты за услуги <span v-if="hasErrors" style="color:red; font-weight: 200">(невалидна!)</span></h3>
             <p>Базовая цена: {{ basePrice }}$</p>
+            <hr style="width: 720px">
             <template v-for="(item, index) in data">
                 <component :is="item.name" :id="item.id" :options="item.options"></component>
                 <br>
             </template>
             <br>
-            <form-simple-range-slider-component></form-simple-range-slider-component>
             <br>
             <input type="submit" value="К оплате:"/> {{ totalCost }}$
         </form>
@@ -40,12 +40,6 @@
                     this.checksum()
                     component.valid ? this.componentsValidateFalse.delete(component.id) : this.componentsValidateFalse.add(component.id)
                     this.hasErrors = this.componentsValidateFalse.size > 0
-                }
-            )
-
-            // test
-            EventBus.$on('3D-pixel', component => {
-                    console.log(component.to)
                 }
             )
             EventBus.$emit('tell-your-cost');

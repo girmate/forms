@@ -26,15 +26,30 @@ class FormController extends Controller
                     ],
                 }
             },
-//            {
-//                type: `component`,
-//                name: `form-simple-range-slider-component`,
-//                id: `range999`,
-//                options:
-//                {
-//                    selected: 0,
-//                }
-//            },
+            {
+                type: `component`,
+                name: `form-double-range-slider-component`,
+                id: `range999`,
+                options:
+                {
+                    selected: 0,
+                    items:
+                        [
+                            {point: `0`, cost: 0},
+                            {point: `1500`, cost: 25.0},
+                            {point: `1600`, cost: 50.0},
+                            {point: `1700`, cost: 150.0},
+                            {point: `1800`, cost: 170.0},
+                            {point: `1900`, cost: 180.0},
+                            {point: `2000`, cost: 200.0},
+                            {point: `2100`, cost: 250.0},
+                            {point: `2200`, cost: 300.0},
+                            {point: `2300`, cost: 500.0},
+                            {point: `2400`, cost: 700.0},
+                            {point: `Hero`, cost: 1000.0},
+                        ],
+                }
+            },
             {
                 type: `component`,
                 name: `form-select-component`,
