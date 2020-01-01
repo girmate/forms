@@ -8,6 +8,8 @@
                 <br>
             </template>
             <br>
+            <form-simple-range-slider-component></form-simple-range-slider-component>
+            <br>
             <input type="submit" value="К оплате:"/> {{ totalCost }}$
         </form>
     </div>

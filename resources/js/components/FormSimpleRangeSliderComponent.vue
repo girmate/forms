@@ -1,5 +1,5 @@
 <template>
-    <input type="text" class="js-range-slider">
+    <input type="text" class="js-range-slider" name="slider">
 </template>
 
 <script>

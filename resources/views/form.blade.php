@@ -90,7 +90,6 @@
             <a href="/">Home</a>
         </div>
         <hr>
-        <form-simple-range-slider-component></form-simple-range-slider-component>
 
         {!! $form !!}
 
