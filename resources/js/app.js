@@ -8,6 +8,8 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+require('ion-rangeslider');
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -20,9 +22,6 @@ const files = require.context('./', true, /\.vue$/i)
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 //Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-// Vue.component('form-component', require('./components/FormComponent.vue').default);
-// Vue.component('form-select-component', require('./components/FormSelectComponent.vue').default);
-// Vue.component('form-radio-component', require('./components/FormRadioComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

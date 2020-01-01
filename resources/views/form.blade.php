@@ -9,6 +9,8 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"/>
+
     <!-- Styles -->
     <style>
         html, body {
@@ -88,9 +90,13 @@
             <a href="/">Home</a>
         </div>
         <hr>
+        <form-simple-range-slider-component></form-simple-range-slider-component>
+
         {!! $form !!}
+
     </div>
 </div>
 <script src="{{ mix('/js/app.js') }}"></script>
+
 </body>
 </html>

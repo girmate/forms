@@ -1,7 +1,7 @@
 <template>
     <div>
         <template v-for="(option, index) in options.items">
-            <input type="radio" v-bind:value="index" :key="index" v-model="selected" v-on:change="onChanged" v-bind:name="id"/>{{ option.text }} - {{ option.cost }}$<br>
+            <input type="radio" v-bind:value="index" :key="index" v-model="selected" v-on:change="onChanged" v-bind:name="id">{{ option.text }} - {{ option.cost }}$<br>
         </template>
         <span v-if="errors.length" style="color:red; font-weight: 600">{{ errors[0] }}</span>
     </div>

@@ -26,6 +26,15 @@ class FormController extends Controller
                     ],
                 }
             },
+//            {
+//                type: `component`,
+//                name: `form-simple-range-slider-component`,
+//                id: `range999`,
+//                options:
+//                {
+//                    selected: 0,
+//                }
+//            },
             {
                 type: `component`,
                 name: `form-select-component`,
