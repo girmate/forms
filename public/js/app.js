@@ -1999,9 +1999,10 @@ __webpack_require__.r(__webpack_exports__);
 
       component.valid ? _this.componentsValidateFalse["delete"](component.id) : _this.componentsValidateFalse.add(component.id);
       _this.hasErrors = _this.componentsValidateFalse.size > 0;
-    });
+    }); // test
+
     _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('hi-pixel', function (component) {
-      alert(component.test);
+      console.log(component.to);
     });
     _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('tell-your-cost');
     this.checksum();
@@ -2366,7 +2367,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    var vm = this;
     $(this.$el).ionRangeSlider({
       skin: "big",
       type: "double",
@@ -2377,9 +2377,7 @@ __webpack_require__.r(__webpack_exports__);
       to: 800,
       prefix: "$",
       onFinish: function onFinish(data) {
-        _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('hi-pixel', {
-          test: 888
-        });
+        _app_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('hi-pixel', data);
       }
     });
   },

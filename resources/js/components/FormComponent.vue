@@ -40,8 +40,10 @@
                     this.hasErrors = this.componentsValidateFalse.size > 0
                 }
             )
+
+            // test
             EventBus.$on('hi-pixel', component => {
-                    alert(component.test)
+                    console.log(component.to)
                 }
             )
             EventBus.$emit('tell-your-cost');
